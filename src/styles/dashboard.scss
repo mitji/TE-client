@@ -1,0 +1,14 @@
+.content {
+  display: flex;
+  background-color: #f7f8ff;
+  min-height: 800px;
+  margin-left: 200px;
+  box-sizing: border-box;
+  padding: 50px 0;
+}
+
+.profile-column {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}

@@ -1,4 +1,5 @@
-//	lib/AuthProvider.js
+//	services
+//AuthProvider.js
 
 import React from 'react';
 import authService from './auth-service'; // IMPORT functions for axios requests to API
@@ -33,11 +34,14 @@ const withAuth = WrappedComponent => {
 
 // Provider
 class AuthProvider extends React.Component {
-  state = { isLoggedin: false, user: null, isLoading: true };
+  state = { 
+    isLoggedin: false, 
+    user: null, 
+    isLoading: true 
+  };
 
   componentDidMount() {
-    authService
-      .me()
+    authService.me()
       .then(user =>
         this.setState({ isLoggedin: true, user: user, isLoading: false }),
       )
@@ -47,26 +51,23 @@ class AuthProvider extends React.Component {
   }
 
   signup = user => {
-    const { username, password } = user;
+    const { email, name, lastName, password } = user;
 
-    authService
-      .signup({ username, password })
+    authService.signup({ email, name, lastName, password })
       .then(user => this.setState({ isLoggedin: true, user }))
       .catch(err => console.log(err));
   };
 
   login = user => {
-    const { username, password } = user;
+    const { email, password } = user;
 
-    authService
-      .login({ username, password })
+    authService.login({ email, password })
       .then(user => this.setState({ isLoggedin: true, user }))
       .catch(err => console.log(err));
   };
 
   logout = () => {
-    authService
-      .logout()
+    authService.logout()
       .then(() => this.setState({ isLoggedin: false, user: null }))
       .catch(err => console.log(err));
   };

@@ -70,7 +70,8 @@ User profile:
 | `/my-trainings/:trainingID/edit` | ExerciseEdit | user only | Edit exercise details |
 | `/my-trainings/new` | TrainingNew        | user only   | Form to create new training           |
 | `/discover` | Discover | user only   | List of all categories         |
-| `/category` | Category | user only   | List of all the exercises in that category |
+| `/category` | Type | user only   | List of all the exercises in that category |
+| `/search` | Search | user only | Results for the search. The search is made by exercise title |
 
 
 
@@ -140,6 +141,7 @@ User model
   image: {type: String},
   sport: {type: String},
   trainings: [{type: Schema.Types.ObjectId, ref:'Training'}],
+  exercises: [{type: Schema.Types.ObjectId, ref:'Exercise'}],
   savedExercises: [{type: Schema.Types.ObjectId, ref:'Exercises'}]
 }
 ```
@@ -154,7 +156,6 @@ Training model
    description: {type: String, required: true},
    duration: {type: String, required: true},
    sport: {type: String, required: true},
-   type: {type: String, required: true},
    exercises: [{type: Schema.Types.ObjectId, ref:'Exercise'}]
  }
 ```
@@ -173,6 +174,7 @@ Exercise model
    video_url: {type: String},
    img_url: {type: String},
    public: {type: Boolean},
+   author: {type: Schema.Types.ObjectId, ref:'User'}
    rating: {type: String},
    comments: [{type: Schema.Types.ObjectId, ref:'Comment'}],
  	 complexity: {type: String}
@@ -216,18 +218,23 @@ Article model
 | POST        | `/logout`                |                       | 204            | 400          | Logs out the user                                            |
 | GET | `/profile` |  | 200 | 400 | Show user info + exercises + saved exercises |
 | GET | `/edit-profile` |  |  |  |  |
-| GET         | `/my-trainings/:userId` |                              |                | 400          | Show user trainings and saved exercises                      |
+| PUT | `/edit-profile` |  |  |  | Edit profile |
 | PUT | `/profile/:exerciseId` | {id} | 200 | 400 | Unsave exercise from my trainings page                       |
 | GET         | `/my-trainings/:trainingId` | {id}                         | 200 | 404 | Show specific training. Returns training object    |
+| GET | `/my-trainings/new` |  |  |  | Route of create new training |
+| POST | `/my-trainings/new` |  |  |  | Create new training |
 | GET | `/my-trainings/:trainingId/edit` |  |  |  | Training edit page |
-| PUT | `/my-trainings/:trainingId` | {title, description, duration, type, exercises} | 201 | 400 | Edit training |
-| DELETE | `/my-trainings/:trainingId` | {id} | 200 | 400 | Delete training |
-| PUT | `/exercices/:exerciseId` | {title, description, duration, type, exercises} | 201 | 400 | Edit exercise |
+| PUT | `/my-trainings/:trainingId/edit` | {title, description, duration, type, exercises} | 201 | 400 | Edit training |
+| DELETE | `/my-trainings/:trainingId/edit` | {id} | 200 | 400 | Delete training |
+| POST | `/exercises/:exerciseId` | {title, description, duration, type, exercises} |  |  |  |
+| GET | `/exercises/:exerciseId` | {title, description, duration, type, exercises} |  |  |  |
+| PUT | `/exercises/:exerciseId` | {title, description, duration, type, exercises} | 201 | 400 | Edit exercise |
+| POST | `/my-trainings/:trainingId/:exerciseId` |  |  |  | Add exercise to training and to database |
 | PUT | `/my-trainings/:trainingId/:exerciseId` |  |  |  | Delete exercise from training but not from |
-| GET | `/discover` |  | 201 | 400 | Show categories |
-| GET | `/category` |  | 201 | 400 | Show category exercises |
+| GET | `/discover` |  | 201 | 400 | Show all exercises |
 | GET | `/:exerciseId` | {id} |  |  | Show exercise data |
-| PUT | `/:exerciseId/save?_id:{exerciseId}` | {id} | 200 | 400 | Save exercise |
+| PUT | `exercises/:exerciseId` | {id} | 200 | 400 | Save exercise |
+| GET | `/search?result=` |  |  |  |  |
 
 
 

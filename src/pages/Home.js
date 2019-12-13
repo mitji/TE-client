@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
+
 import { Link } from 'react-router-dom';
 import { withAuth } from '../services/AuthProvider';
 
-class Navbar extends Component {
+import Dashboard from './Dashboard';
+
+class Home extends Component {
   render() {
     const { user, logout, isLoggedin } = this.props;
     return (
-      <div
-        style={{ borderRadius: '5px', padding: '20px', background: '#686de0' }}>
+      <div>
         {isLoggedin ? (
-          <div>
-            <p>username: {user.name}</p>
-            <button onClick={logout}>Logout</button>
-          </div>
+            <Dashboard user={user} logout={logout}/>
         ) : (
           <div>
             <Link to="/login">
@@ -31,4 +30,4 @@ class Navbar extends Component {
   }
 }
 
-export default withAuth(Navbar);
+export default withAuth(Home);

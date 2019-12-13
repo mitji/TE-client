@@ -9,25 +9,25 @@ class Auth {
   }
 
   signup(user) {
-    const { username, password } = user;
-    return this.auth
-      .post('/auth/signup', { username, password })
+    const { email, name, lastName, password } = user;
+    return this.auth.post('/auth/signup', { email, name, lastName, password })
       .then(({ data }) => data);
   }
 
   login(user) {
-    const { username, password } = user;
-    return this.auth
-      .post('/auth/login', { username, password })
+    const { email, password } = user;
+    return this.auth.post('/auth/login', { email, password })
       .then(({ data }) => data);
   }
 
   logout() {
-    return this.auth.post('/auth/logout', {}).then(response => response.data);
+    return this.auth.post('/auth/logout', {})
+      .then(response => response.data);
   }
 
   me() {
-    return this.auth.get('/auth/me').then(response => response.data);
+    return this.auth.get('/auth/me')
+      .then(response => response.data);
   }
 }
 

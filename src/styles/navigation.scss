@@ -1,0 +1,55 @@
+@import 'colors';
+
+nav {
+  display: flex;
+  align-items: center;
+  position: relative;
+  background-color: $white;
+  margin-left: 200px;
+  height: 55px;
+  padding: 0 20px;
+  box-shadow: -1px 5px 10px 1px rgba(143,143,143,0.06);
+  p {
+    display: flex;
+  }
+  input {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    width: 70%;
+    padding: 15px;
+    margin-right: 30px;
+    border: none;
+    outline: none;
+  }
+}
+
+.sidebar {
+  width: 200px;
+  background-color: $dark-blue;
+  color: #E1E1E1;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+  top: 0;
+  .logo {
+    margin: 50px 0;
+  }
+  &__links-wrapper {
+    h4 {
+      padding: 10px 20px;
+      text-align: left;
+    }
+    button {
+      display: flex;
+      position: absolute;
+      bottom: 0;
+      border: none;
+      width: 100%;
+      background-color: transparent;
+      color: $white;
+      padding: 15px;
+      outline: none;
+    }
+  }
+}

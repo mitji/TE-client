@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { withAuth } from '../lib/AuthProvider';
+import { withAuth } from '../services/AuthProvider';
 
 class Signup extends Component {
-  state = { username: '', password: '' };
+  state = { 
+    email: '', 
+    name: '',
+    lastName: '',
+    password: '' 
+  };
 
   handleFormSubmit = event => {
     event.preventDefault();
-    const { username, password } = this.state;
+    const { email, name, lastName, password } = this.state;
     //  console.log('Signup -> form submit', { username, password });
-    this.props.signup({ username, password }); // props.signup is Provided by withAuth() and Context API
+    this.props.signup({ email, name, lastName, password }); // props.signup is Provided by withAuth() and Context API
   };
 
   handleChange = event => {
@@ -18,16 +23,31 @@ class Signup extends Component {
   };
 
   render() {
-    const { username, password } = this.state;
+    const { email, name, lastName, password } = this.state;
     return (
       <div>
         <h1>Sign Up</h1>
         <form onSubmit={this.handleFormSubmit}>
-          <label>Username:</label>
+          <label>Email:</label>
+          <input
+            type="email"
+            name="email"
+            value={email}
+            onChange={this.handleChange}
+          />
+          <label>Name:</label>
           <input
             type="text"
-            name="username"
-            value={username}
+            name="name"
+            value={name}
+            onChange={this.handleChange}
+          />
+
+          <label>Last name:</label>
+          <input
+            type="text"
+            name="lastName"
+            value={lastName}
             onChange={this.handleChange}
           />
 
