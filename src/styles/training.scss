@@ -1,0 +1,65 @@
+@import 'colors';
+
+.trainings-list {
+  // display: flex;
+  // flex-wrap: wrap;
+  // align-items: flex-start;
+  display: flex;
+  flex-flow: column wrap;
+  align-content: space-between;
+  height: 1000px;
+}
+.training-card {
+  width: 290px;
+  position: relative;
+  border-radius: 3px;
+  background-color: $white;
+  border-radius: 5px;
+  box-shadow: 0 0 12px 0 #E1E1E1;
+  color: #fff;
+  padding: 20px 0;
+  margin-top: 20px;
+  box-sizing: border-box;
+
+  // &::before {
+  //   counter-increment: training-card;
+  //   content: counter(training-card);
+  // }
+
+  &__header {
+    padding: 0 20px 5px;
+    border-bottom: 1px solid #E1E1E1;
+  }
+  &__exercise {
+    margin: 15px 0;
+    padding: 0 20px;
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+}
+
+/* Re-order items into 3 rows */
+.training-card:nth-child(3n+1) { order: 1; }
+.training-card:nth-child(3n+2) { order: 2; }
+.training-card:nth-child(3n)   { order: 3; }
+
+/* Force new columns */
+.trainings-list::before,
+.trainings-list::after {
+  content: "";
+  flex-basis: 100%;
+  width: 0;
+  order: 2;
+}
+
+// TRAINING DETAILS
+.training-info {
+  &__header {
+    padding-bottom: 5px;
+    border-bottom: 1px solid #E1E1E1;
+  }
+  &__exercises {
+    margin-top: 15px;
+  }
+}

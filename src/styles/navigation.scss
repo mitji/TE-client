@@ -3,11 +3,12 @@
 nav {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   position: relative;
   background-color: $white;
   margin-left: 200px;
   height: 55px;
-  padding: 0 20px;
+  padding: 0 40px;
   box-shadow: -1px 5px 10px 1px rgba(143,143,143,0.06);
   p {
     display: flex;
@@ -39,6 +40,7 @@ nav {
     h4 {
       padding: 10px 20px;
       text-align: left;
+      color: #E1E1E1;
     }
     button {
       display: flex;
@@ -50,6 +52,15 @@ nav {
       color: $white;
       padding: 15px;
       outline: none;
+    }
+  }
+  .selected {
+    display: flex;
+    background-color: rgb(11,37,90);
+    
+    border-right: 7px solid #598AFF;
+    h4 {
+      color: #598AFF;
     }
   }
 }

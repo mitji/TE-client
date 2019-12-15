@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 
 import { Link } from 'react-router-dom';
 import { withAuth } from '../services/AuthProvider';
@@ -11,7 +12,7 @@ class Home extends Component {
     return (
       <div>
         {isLoggedin ? (
-            <Dashboard user={user} logout={logout}/>
+          <Redirect to="/profile" />
         ) : (
           <div>
             <Link to="/login">

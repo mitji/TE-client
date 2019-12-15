@@ -1,0 +1,47 @@
+@import 'colors';
+
+.profile-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 30px;
+  .profile-column {
+    display: flex;
+    flex-direction: column;
+    max-width: 315px;
+    width: 100%;
+  }
+}
+
+.exercises-container {
+  background-color: $white;
+  box-sizing: border-box;
+  padding: 10px 0;
+  margin-top: 20px;
+  box-shadow: 0 0 12px 0 #E1E1E1;
+  border-radius: 18px;
+  &__item {
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    border-bottom: 1px solid #E1E1E1;
+    &:last-of-type {
+      border-bottom: none;
+    }
+   
+  }
+}
+
+// exercise type color legend
+.item-type {
+  border-radius: 3px;
+  padding: 2px 5px;
+  box-sizing: border-box;
+}
+.defense {
+  background-color: magenta;
+}
+.skills {
+  background-color: mediumturquoise;
+}
+

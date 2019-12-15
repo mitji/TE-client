@@ -17,17 +17,11 @@ class Dashboard extends Component {
   render() {
     return (
       <div>
-        {/* SearchBar component --> name and image here*/}
+        {/* SearchBar component --> name and image here
         <SearchBar userName={this.props.user.name}/>
-        {/* SideMenu component --> logout here*/}
-        <SideMenu logout={this.props.logout}/> 
-        <div>
-          <Switch>
-            <PrivateRoute exact path="/" component={Profile} />
-            <PrivateRoute exact path="/my-trainings" component={MyTrainings} />
-            <PrivateRoute exact path="/discover" component={Discover} />   
-          </Switch>
-        </div>
+         SideMenu component --> logout here*
+        <SideMenu logout={this.props.logout}/>  */}
+
         
           
       </div>

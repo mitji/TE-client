@@ -13,6 +13,12 @@ class Profile {
           .get('/')
           .then(({ data }) => data);
   }
+
+  unsaveExercise(id) {
+    return this.profile
+          .put(`/${id}`)
+          .then(({ data }) => data);
+  }
 }
 
 // ProfilesService.getAll()

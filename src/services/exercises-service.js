@@ -21,10 +21,10 @@ class Exercises {
               .then(({ data }) => data);
   }
 
-  modifyOne(modifiedExercise) {
+  modifyOne(modifiedExercise, id) {
     const {title, description, duration, sport, type, video_url, img_url, share} = modifiedExercise;
     return this.exercises
-              .put(`/${modifiedExercise._id}`, {title, description, duration, sport, type, video_url, img_url, share})
+              .put(`/${id}`, {title, description, duration, sport, type, video_url, img_url, share})
               .then(({ data }) => data);
   }
 
@@ -34,14 +34,6 @@ class Exercises {
               .then(({ data }) => data);
   }
 }
-
-// exercisessService.getAll()
-//   .then( (response) => response.data )
-//   .catch( (err) => console.log(err));
-
-// exercisessService.getOneById( idString )
-//   .then( ( { data } ) => data)
-//   .catch( (err) => console.log(err));
 
 const exercisesService = new Exercises();
 
