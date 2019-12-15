@@ -59,7 +59,24 @@
     padding-bottom: 5px;
     border-bottom: 1px solid #E1E1E1;
   }
+  &__description {
+    margin-top: 30px
+  }
   &__exercises {
     margin-top: 15px;
+  }
+}
+
+// EDIT TRAINING
+.edit-training {
+  display: flex;
+  &__info {
+    width: 45%;
+    flex-flow: column wrap;
+  }
+  &__user-exercises, &__saved-exercises {
+    width: 27.5%;
+    padding: 0 15px;
+    box-sizing: border-box;
   }
 }

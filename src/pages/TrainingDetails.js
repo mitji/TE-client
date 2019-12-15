@@ -23,7 +23,6 @@ class TrainingDetails extends Component {
     const {id} = this.props.match.params; // get id from url
     trainingService.getOne(id)
       .then( (training) => {
-        console.log(training); 
         this.setState({training})      
       })
       .catch( (err) => console.log(err));
@@ -33,16 +32,17 @@ class TrainingDetails extends Component {
     const training = this.state.training;
 
     return(
-      <div className="content" key={shortid.generate()}>
+      <div className="content">
         {
           training ?
           (
             <div className="training-info">
               <div className="training-info__header">
                 <h1>{training.title}</h1>
-                <span>{training.duration} min</span>
-                <Link to={`/profile/${training._id}/edit`}><button>Edit</button></Link>
+                <span>{training.duration} min | {training.sport}</span>
+                <Link to={`/my-trainings/${training._id}/edit`}><button>Edit</button></Link>
               </div>
+              <p className="training-info__description">{training.description}</p>
               {training.exercises.map( exercise => {
                 return (
                   <div className="training-info__exercises" key={shortid.generate()}>
@@ -53,8 +53,7 @@ class TrainingDetails extends Component {
                   </div>
                 )
               })}
-            </div>
-            
+            </div>          
           )
           : null
         }

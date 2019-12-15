@@ -21,7 +21,6 @@ class ExerciseEdit extends Component {
     
     exercisesService.modifyOne({title, description, duration, sport, type, video_url, img_url, share}, id)
       .then( (updatedExercise) => {
-        console.log(updatedExercise);
         this.setState({ exercise: updatedExercise });
         this.props.history.goBack();
       })

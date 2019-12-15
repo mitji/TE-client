@@ -24,9 +24,8 @@ class ExerciseList extends Component {
                 <p>{exercise.title}</p>
                 <span className={`item-type ${exercise.type}`}>{exercise.type}</span>
                 <p>{exercise.description}</p>
-                <p><strong>Duration: </strong>{exercise.duration} min</p>
                 {
-                  (exercise.author._id != this.props.userId) ?
+                  (exercise.author._id !== this.props.userId) ?
                   (
                     <div>
                       <p><strong>Author: </strong>{exercise.author.name} {exercise.author.lastName}</p>
@@ -37,9 +36,9 @@ class ExerciseList extends Component {
                 }
               </Link>
               {
-                this.props.inEditTraining ?
-                <button>Add to training</button>
-                : null
+                this.props.inEditTraining
+                  ? <button onClick={()=>this.props.addExercise(exercise._id)}>Add to training</button>
+                  : null
               }
             </div>
           )

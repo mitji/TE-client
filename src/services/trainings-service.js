@@ -26,6 +26,20 @@ class Training {
           .get(`/${id}`)
           .then(({ data }) => data);
   }
+
+  modifyOne(modifiedTraining, id) {
+    const { title, description, duration, sport } = modifiedTraining;
+    return this.training    
+          .put(`/${id}`, { title, description, duration, sport })
+          .then(({ data }) => data);
+  }
+
+  addExercise(trainingId, exerciseId) {
+    return this.training
+          .post(`/${trainingId}/${exerciseId}`)
+          .then((data) => data);
+  }
+  
 }
 
 const TrainingService = new Training();
