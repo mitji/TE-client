@@ -79,4 +79,34 @@
     padding: 0 15px;
     box-sizing: border-box;
   }
+  .hidden {
+    display: none;
+  }
+  .edit-exercise {
+    position: absolute;
+    top: 55px;
+      left: 200px;
+    height: 100%;
+    width: 100%; 
+    &__backdrop {
+      height: 100%;
+      width: 100%;     
+      background-color: black;
+      opacity: 0.25;
+      overflow: unset;
+      z-index: 10;
+    }
+    &__form {
+      position: absolute;
+      top: 25%;
+      left: 25%;
+      padding: 30px;
+      border-radius: 8px;
+      width: 400px;
+      background-color: $white;
+      h2 {
+        text-align: center;
+      }
+    }
+  }
 }

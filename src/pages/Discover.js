@@ -10,7 +10,9 @@ import './../styles/discover.scss';
 class Discover extends Component {
 
   state = {
-    publicExercises: []
+    publicExercises: [],
+    sport: 'all',
+    type: 'all'
   }
 
   componentDidMount() {
@@ -24,11 +26,30 @@ class Discover extends Component {
 
   render() {
     const publicExercises = this.state.publicExercises;
+    console.log(this.state.sport, this.state.type)
     return(
       <div className="content">
         <h1>Discover page</h1>
-        {/* this will be inside discoverCard */}
 
+        <form onSubmit={this.filter}>
+          <select name="" id="" ref="sport" onChange={(e) => this.setState({ sport: e.target.value })}>
+            <option value="" default>All</option>
+            <option value="basketball">Basketball</option>
+            <option value="rugby">Rugby</option>
+            <option value="football">Football</option>
+          </select>
+          <select name="" id="" ref="type" onChange={(e) => this.setState({ type: e.target.value })}>
+            <option value="all" default>All</option>
+            <option value="skills">Skills</option>
+            <option value="attack">Attack</option>
+            <option value="defense">Defense</option>
+            <option value="strength">Strength $ Conditioning</option>
+            <option value="stretc">Stretch</option>
+            <option value="recovery">Recovery</option>
+          </select>
+
+          <button>Filter</button>
+        </form>
         {
           publicExercises ?
           (

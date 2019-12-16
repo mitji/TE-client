@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import trainingsService from './../services/trainings-service';
 import profileService from './../services/profile-service';
 
+import TrainingExerciseEdit from './../components/TrainingExerciseEdit';
 import ExerciseList from './../components/ExerciseList';
 
 class TrainingEdit extends Component {
@@ -10,7 +11,17 @@ class TrainingEdit extends Component {
   state = {
     training: {},
     trainingExercises: [],
-    user: {}
+    user: {},
+    showEdit: false,
+    exerciseToEdit: null,
+    title: '', 
+    description: '', 
+    duration: '', 
+    sport: '', 
+    type: '', 
+    video_url: '',
+    img_url: '', 
+    share: ''
   }
 
   handleInput = e => {
@@ -62,6 +73,14 @@ class TrainingEdit extends Component {
       .catch( (err) => console.log(err));
   }
 
+  editToggle = (exercise) => {
+    const show = !this.state.showEdit;
+    this.setState(
+      {showEdit: show, 
+      exerciseToEdit: exercise}
+    );
+  }
+
   componentDidMount() {
     window.scrollTo(0, 0)
     const {id} = this.props.match.params;
@@ -70,9 +89,7 @@ class TrainingEdit extends Component {
       .then( (training) => {
         profileService.getUser()
           .then( (userInfo) => {
-            this.setState({training});
-            this.setState({trainingExercises: training.exercises});
-            this.setState({user: userInfo});
+            this.setState({training, trainingExercises: training.exercises, user: userInfo});
           })
           .catch( (err) => console.log(err));
       })
@@ -80,14 +97,25 @@ class TrainingEdit extends Component {
   }
 
   render() {
+    
     const training = this.state.training;
     const trainingExercises = this.state.trainingExercises;
     const userExercises = this.state.user.exercises;
     const savedExercises = this.state.user.savedExercises;
 
-    
     return(
       <main className="content edit-training">
+      {this.state.showEdit ?
+        (
+          <TrainingExerciseEdit 
+            classToggle={this.state.showEdit} 
+            click={this.editToggle}
+            exercise={this.state.exerciseToEdit}
+          />
+        )
+        :null
+      }
+      
         <section className="edit-training__info">
           <form onSubmit={this.updateTraining}>
             <label htmlFor="">Title</label>
@@ -114,6 +142,7 @@ class TrainingEdit extends Component {
                         <p>{exercise.description}</p>
                         <p><strong>Sport: </strong>{exercise.sport}</p>
                         <button onClick={() => this.removeExerciseFromTraining(exercise._id)}>Remove</button>
+                        <button onClick={() => this.editToggle(exercise)}>Edit</button>
                       </div>
                     )
                   })
