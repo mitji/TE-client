@@ -1,8 +1,11 @@
 import React, {Component} from 'react';
 import shortid from 'shortid';
 
+import DiscoverCard from './../components/DiscoverCard';
+
 import discoverService from './../services/discover-service';
-import exercisesService from '../services/exercises-service';
+
+import './../styles/discover.scss';
 
 class Discover extends Component {
 
@@ -24,20 +27,21 @@ class Discover extends Component {
       <div className="content">
         <h1>Discover page</h1>
         {/* this will be inside discoverCard */}
+
         {
           publicExercises ?
           (
-            publicExercises.map( exercise => {
-              return (
-                <div  key={shortid.generate()}>
-                  <h4>{exercise.title}</h4>
-                  <p>{exercise.duration} min | {exercise.sport}</p>
-                  <p>{exercise.type}</p>
-                  <p>By {exercise.author.name} {exercise.author.lastName}</p>
-                </div>
-                
-              )
-            })
+            <div class="discover-list">
+              {
+                publicExercises.map( exercise => {
+                  return (
+                    <DiscoverCard exercise={exercise} />
+                    
+                  )
+                })
+              }
+            </div>
+            
           )
           : null
         }

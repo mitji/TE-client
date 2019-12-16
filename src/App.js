@@ -51,7 +51,9 @@ class App extends Component {
           <PrivateRoute exact path="/my-trainings/new-training" component={TrainingNew} />
           <PrivateRoute exact path="/my-trainings/:id" component={TrainingDetails} />
           <PrivateRoute exact path="/my-trainings/:id/edit" component={TrainingEdit} />
+
           {/* -- Discover -- */}
+          <PrivateRoute exact path="/discover/:id" component={ExerciseDetails} />
           {/* -- Forum -- */}
         </Switch>
       </div>

@@ -3,6 +3,7 @@ import shortid from 'shortid';
 import { Link } from 'react-router-dom';
 
 class DiscoverCard extends Component {
+
   constructor(props) {
     super(props);
 
@@ -10,15 +11,18 @@ class DiscoverCard extends Component {
       exercise: this.props.exercise
     }
   }
+
   render() {
     const exercise = this.state.exercise;
 
     return(
-      <div className="training-card" key={shortid.generate()}>
+      <div className="discover-card" key={shortid.generate()}>
         <Link to={`/discover/${exercise._id}`}>
-          <div className="exercise-card__header">
+          <div className="discover-card__header">
             <h4>{exercise.title}</h4>
-            <span>{exercise.duration} min</span>
+            <p>{exercise.duration} min | {exercise.sport}</p>
+            <p>{exercise.type}</p>
+            <p>By {exercise.author.name} {exercise.author.lastName}</p>
           </div>
         </Link>
       </div>
