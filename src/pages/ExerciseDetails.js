@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+
 import exercisesService from './../services/exercises-service';
 import profileService from './../services/profile-service';
 import discoverService from './../services/discover-service';
@@ -8,7 +9,8 @@ class ExerciseDetails extends Component {
 
   state = {
     exercise: {},
-    userId: ''
+    userId: '',
+    isSaved: null
   }
 
   saveExercise = (e) => {
@@ -17,7 +19,18 @@ class ExerciseDetails extends Component {
     const id = this.state.exercise._id;
     discoverService.save(id)
       .then( () => {
+        this.setState({isSaved: true});
         console.log('added to favourites');
+      })
+      .catch( (err) => console.log(err));
+  }
+
+  unsaveExercise = (e) => {
+    e.preventDefault();
+    const id = this.state.exercise._id;
+    profileService.unsaveExercise(id)
+      .then( () => {
+        this.setState({isSaved: false});
       })
       .catch( (err) => console.log(err));
   }
@@ -29,8 +42,10 @@ class ExerciseDetails extends Component {
       .then( (exercise) => {
         profileService.getUser()
           .then( (user) => {
-            this.setState({exercise})
-            this.setState({userId: user._id})
+            const isSaved = user.savedExercises.some( savedEx => {
+              return savedEx._id === exercise._id;
+            });
+            this.setState({exercise, userId: user._id, isSaved});
           })
           .catch( (err) => console.log(err));
       })
@@ -39,8 +54,12 @@ class ExerciseDetails extends Component {
   render() {
     const exercise = this.state.exercise;
     const userId = this.state.userId;
+    console.log('is saved?', this.state.isSaved);
     return(
       <main className="content">
+        <button className="btn-icon" onClick={() => this.props.history.goBack()}>
+          <img src={'/arrow.svg'} className="back-icon" alt=""/>
+        </button>
         <h1>Exercise details</h1>
         { 
           exercise ?
@@ -55,17 +74,21 @@ class ExerciseDetails extends Component {
               <p><strong>Duration:</strong> {exercise.duration}</p>
               {
                 (exercise.author !== userId) ?
-                (
-                  <button className="btn btn-success" onClick={this.saveExercise}>Save</button>
-                )
-                : null
+                  (
+                    <div>
+                    {
+                      !this.state.isSaved
+                        ? <button className="btn btn-success" onClick={this.saveExercise}>Save</button>
+                        : <button className="btn btn-delete" onClick={this.unsaveExercise}>Unsave</button>
+                    }
+                    </div>
+                  )
+                  : null
               }
             </div>
           )
           : null
         }
-        <button className="btn" onClick={() => this.props.history.goBack()}>Back</button>
-
       </main>
     )
   }

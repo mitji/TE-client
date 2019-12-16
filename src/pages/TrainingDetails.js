@@ -34,16 +34,18 @@ class TrainingDetails extends Component {
 
     return(
       <div className="content">
-      <button className="btn" onClick={() => this.props.history.push('/my-trainings')}>Back</button>
+        <button className="btn-icon" onClick={() => this.props.history.push('/my-trainings')}>
+          <img src={'/arrow.svg'} className="back-icon" alt=""/>
+        </button>
         {
           training ?
           (
             <div className="training-info">
-              <div className="training-info__header">
-              <div className="training-header">
-                <h1>{training.title}</h1>
-                <Link to={`/my-trainings/${training._id}/edit`}><button className="btn btn-edit">Edit</button></Link>
-              </div>
+              <div className="training-info__header">   
+                <div className="training-header">
+                  <h1>{training.title}</h1>
+                  <Link to={`/my-trainings/${training._id}/edit`}><button className="btn btn-edit">Edit</button></Link>
+                </div>
               <span>{training.duration} min | {training.sport}</span>
               </div>
               <p className="training-info__description">{training.description}</p>

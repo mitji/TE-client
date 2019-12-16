@@ -48,6 +48,11 @@ class ExerciseEdit extends Component {
   render() {
     return(
       <main className="content">
+
+        <button className="btn-icon" onClick={() => this.props.history.goBack()}>
+          <img src={'/arrow.svg'} className="back-icon" alt=""/>
+        </button>
+
         <h1>Exercise details</h1>
 
         <form onSubmit={this.updateExercise}>

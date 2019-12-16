@@ -13,23 +13,30 @@
   transition: 0.3s;
 }
 
+.btn-icon {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background: none;
+}
+
 .btn:hover {
   filter: brightness(95%);
 }
 
 .btn-success {
-  background-color: #bff8bf;
+  background-color: #bdffbd;
 }
 
 .btn-delete {
-  background-color: firebrick;
+  background-color: #ff8484;
   color: $white;
 }
 
 .btn-create {
   background-color: $orange;
   color: $dark-blue;
-  width: 50px;
+  padding: 5px 15px;
 }
 
 .btn-edit {

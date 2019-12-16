@@ -63,7 +63,11 @@ class TrainingExerciseEdit extends Component {
 
     const exerciseCopy = this.state.exercise;
     exerciseCopy[name] = value;
-    this.setState({ exercise: exerciseCopy, focusInput: name });
+    if (name !== 'duration') {
+      this.setState({ exercise: exerciseCopy, focusInput: name });
+    } else {
+      this.setState({ exercise: exerciseCopy});
+    }
   };
 
   componentDidUpdate() {
@@ -81,9 +85,9 @@ class TrainingExerciseEdit extends Component {
       <div className = { this.props.classToggle ? "edit-exercise show" : "edit-exercise hidden"} key={shortid.generate()}>
         <div className="edit-exercise__backdrop" onClick={this.props.click}></div>
         
-        <div className="edit-exercise__form">
+        <div className="edit-exercise__form-container">
           <h2>Edit exercise</h2>
-          <button className="btn" onClick={this.props.click}>X</button>
+          <button className="btn close-btn" onClick={this.props.click}>X</button>
 
           {(this.state.exercise === null) ?
             <h1>loading</h1>
@@ -94,7 +98,7 @@ class TrainingExerciseEdit extends Component {
                 <label htmlFor="">Description</label>
                 <textarea value={this.state.exercise.description} name="description" onChange={this.handleChange}  ref={this.references['description']}/>
                 <label htmlFor="">Duration</label>
-                <input type="number" value={this.state.exercise.duration} name="duration" onChange={this.handleChange}  ref={this.references['duration']}/>
+                <input type="number" value={this.state.exercise.duration} name="duration" onChange={this.handleChange}/>
                 <label htmlFor="">Sport</label>
                 <input type="text"  value={this.state.exercise.sport} name="sport" onChange={this.handleChange}  ref={this.references['sport']}/>
                 <label htmlFor="">Type</label>
@@ -103,7 +107,7 @@ class TrainingExerciseEdit extends Component {
                 <input type="text" name="video_url" value={this.state.exercise.video_url} onChange={this.handleChange}  ref={this.references['video_url']}/>
                 <label htmlFor="">Image</label>
                 <input type="text" name="img_url" value={this.state.exercise.img_url} onChange={this.handleChange}  ref={this.references['img_url']}/>          
-                <button className="btn">Save</button>
+                <button className="btn btn-success">Save</button>
               </form>
             )
           }
