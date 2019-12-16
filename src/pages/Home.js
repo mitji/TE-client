@@ -17,12 +17,12 @@ class Home extends Component {
           <div>
             <Link to="/login">
               {' '}
-              <button>Login</button>{' '}
+              <button className="btn">Login</button>{' '}
             </Link>
             <br />
             <Link to="/signup">
               {' '}
-              <button>Signup</button>{' '}
+              <button className="btn">Signup</button>{' '}
             </Link>
           </div>
         )}

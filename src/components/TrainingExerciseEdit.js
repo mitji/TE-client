@@ -83,7 +83,7 @@ class TrainingExerciseEdit extends Component {
         
         <div className="edit-exercise__form">
           <h2>Edit exercise</h2>
-          <button onClick={this.props.click}>X</button>
+          <button className="btn" onClick={this.props.click}>X</button>
 
           {(this.state.exercise === null) ?
             <h1>loading</h1>
@@ -103,7 +103,7 @@ class TrainingExerciseEdit extends Component {
                 <input type="text" name="video_url" value={this.state.exercise.video_url} onChange={this.handleChange}  ref={this.references['video_url']}/>
                 <label htmlFor="">Image</label>
                 <input type="text" name="img_url" value={this.state.exercise.img_url} onChange={this.handleChange}  ref={this.references['img_url']}/>          
-                <button>Save</button>
+                <button className="btn">Save</button>
               </form>
             )
           }

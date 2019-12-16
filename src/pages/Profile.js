@@ -46,12 +46,15 @@ class Dashboard extends Component {
         <div className="profile-container">
           {/* List of user Trainings */}
           <div className="profile-column"> 
+          <div className="header">
             {
               userTrainings 
                 ? <h2>Your Trainings ({userTrainings.length})</h2>
                 : <h2>Your Trainings (0)</h2>
                 
-            }   
+            }
+          </div>
+             
             { userTrainings ?
               (
                 <div className="training-container">
@@ -67,13 +70,15 @@ class Dashboard extends Component {
           </div>
           {/* List of user Exercises */}
           <div className="profile-column"> 
-            {
-              userExercises 
-                ? <h2>Your Exercises ({userExercises.length})</h2>
-                : <h2>Your Exercises (0)</h2>
-                
-            }   
-            <Link to={'/profile/new-exercise'}>Create exercise</Link>        
+            <div className="header">
+              {
+                userExercises 
+                  ? <h2>Your Exercises ({userExercises.length})</h2>
+                  : <h2>Your Exercises (0)</h2>
+              }   
+              <Link className="btn btn-create" to={'/profile/new-exercise'}>New</Link>  
+            </div>
+                  
             { userExercises ?
               (
                 <ExerciseList exercises={userExercises} userId={this.state.user._id}/>
@@ -83,11 +88,14 @@ class Dashboard extends Component {
           </div>
           {/* List of user saved exercises */}
           <div className="profile-column">
+          <div className="header">
             {
               savedExercises 
                 ? <h2>Saved Exercises ({this.state.savedExercisesLength})</h2>
                 : <h2>Saved Exercises (0)</h2>
-            }  
+            } 
+          </div>
+             
             { 
               savedExercises ?
                 (

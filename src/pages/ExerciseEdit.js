@@ -67,11 +67,11 @@ class ExerciseEdit extends Component {
           <input type="text" name="img_url" value={this.state.exercise.img_url} onChange={this.handleInput}/>
           <label htmlFor="">Share</label>
           <input type="text" name="share" value={this.state.exercise.share} onChange={this.handleInput}/>
-          <button>Save</button>
+          <button className="btn">Save</button>
         </form>
 
-        <button onClick={() => this.props.history.goBack()}>Back</button>
-        <button onClick={this.deleteExercise}>Delete</button>
+        <button className="btn" onClick={() => this.props.history.goBack()}>Back</button>
+        <button className="btn" onClick={this.deleteExercise}>Delete</button>
 
       </main>
     )

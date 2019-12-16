@@ -22,6 +22,9 @@ import SideMenu from './components/SideMenu';
 import AnonRoute from './components/AnonRoute';
 import PrivateRoute from './components/PrivateRoute';
 
+import './styles/buttons.scss';
+
+
 class App extends Component {
   render() {
     return (

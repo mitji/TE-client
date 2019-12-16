@@ -52,13 +52,13 @@ class ExerciseList extends Component {
               {
                 (exercise.author._id !== this.props.userId && !this.props.inEditTraining) ?
                   (
-                    <button onClick={() => this.unsaveExercise(exercise._id)}>Unsave</button>
+                    <button className="btn" onClick={() => this.unsaveExercise(exercise._id)}>Unsave</button>
                   )
                 : null
               }
               {
                 this.props.inEditTraining
-                  ? <button onClick={()=>this.props.addExercise(exercise._id)}>Add to training</button>
+                  ? <button className="btn" onClick={()=>this.props.addExercise(exercise._id)}>Add to training</button>
                   : null
               }
             </div>

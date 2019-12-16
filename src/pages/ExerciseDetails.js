@@ -48,7 +48,7 @@ class ExerciseDetails extends Component {
               <h2>{exercise.title}</h2>
               {
                 (!exercise.share) 
-                ? <Link to={`/profile/${exercise._id}/edit`}><button>Edit</button></Link>
+                ? <Link to={`/profile/${exercise._id}/edit`}><button className="btn btn-edit">Edit</button></Link>
                 : null
               }
               <p>{exercise.description}</p>
@@ -56,7 +56,7 @@ class ExerciseDetails extends Component {
               {
                 (exercise.author !== userId) ?
                 (
-                  <button onClick={this.saveExercise}>Save</button>
+                  <button className="btn btn-success" onClick={this.saveExercise}>Save</button>
                 )
                 : null
               }
@@ -64,7 +64,7 @@ class ExerciseDetails extends Component {
           )
           : null
         }
-        <button onClick={() => this.props.history.goBack()}>Back</button>
+        <button className="btn" onClick={() => this.props.history.goBack()}>Back</button>
 
       </main>
     )

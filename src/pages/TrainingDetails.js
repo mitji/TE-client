@@ -34,15 +34,17 @@ class TrainingDetails extends Component {
 
     return(
       <div className="content">
-      <button onClick={() => this.props.history.push('/my-trainings')}>Back</button>
+      <button className="btn" onClick={() => this.props.history.push('/my-trainings')}>Back</button>
         {
           training ?
           (
             <div className="training-info">
               <div className="training-info__header">
+              <div className="training-header">
                 <h1>{training.title}</h1>
-                <span>{training.duration} min | {training.sport}</span>
-                <Link to={`/my-trainings/${training._id}/edit`}><button>Edit</button></Link>
+                <Link to={`/my-trainings/${training._id}/edit`}><button className="btn btn-edit">Edit</button></Link>
+              </div>
+              <span>{training.duration} min | {training.sport}</span>
               </div>
               <p className="training-info__description">{training.description}</p>
               {training.exercises.map( exercise => {

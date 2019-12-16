@@ -48,7 +48,7 @@ class Discover extends Component {
             <option value="recovery">Recovery</option>
           </select>
 
-          <button>Filter</button>
+          <button className="btn">Filter</button>
         </form>
         {
           publicExercises ?
@@ -58,7 +58,6 @@ class Discover extends Component {
                 publicExercises.map( exercise => {
                   return (
                     <DiscoverCard exercise={exercise} />
-                    
                   )
                 })
               }

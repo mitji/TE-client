@@ -24,8 +24,11 @@ class MyTrainings extends Component {
     const userTrainings = this.state.trainings;
     return(
       <div className="content">
-        <h1>My Trainings</h1>
-        <Link to={'/my-trainings/new-training'}><button>New training</button></Link>
+        <div className="training-header">
+          <h1>My Trainings</h1>
+          <Link to={'/my-trainings/new-training'}><button className="btn btn-create">New</button></Link>
+        </div>
+        
         <div className="trainings-list ">
           {
             userTrainings ?

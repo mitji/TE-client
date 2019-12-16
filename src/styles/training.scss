@@ -1,5 +1,12 @@
 @import 'colors';
 
+.training-header {
+  display: flex;
+  a {
+    margin-left: 30px;
+    align-self: center;
+  }
+}
 .trainings-list {
   // display: flex;
   // flex-wrap: wrap;
@@ -36,6 +43,12 @@
     &:last-of-type {
       margin-bottom: 0;
     }
+  }
+  transition: 0.3s;
+  &:hover {
+    transition: 0.3s;
+    opacity: 0.9;
+    padding: 25px 0 30px;
   }
 }
 

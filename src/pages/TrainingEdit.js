@@ -126,9 +126,9 @@ class TrainingEdit extends Component {
             <input type="number" value={training.duration} name="duration" onChange={this.handleInput}/>
             <label htmlFor="">Sport</label>
             <input type="text" name="sport" value={training.sport} onChange={this.handleInput}/>
-            <button>Save</button>
-            <button onClick={() => this.props.history.goBack()}>Back</button>
-            <button onClick={this.deleteTraining}>Delete training</button>
+            <button className="btn">Save</button>
+            <button className="btn" onClick={() => this.props.history.goBack()}>Back</button>
+            <button className="btn" onClick={this.deleteTraining}>Delete training</button>
           </form>
           <div className="exercises-edit">
             {
@@ -141,8 +141,8 @@ class TrainingEdit extends Component {
                         <span className={`item-type ${exercise.type}`}>{exercise.type}</span>
                         <p>{exercise.description}</p>
                         <p><strong>Sport: </strong>{exercise.sport}</p>
-                        <button onClick={() => this.removeExerciseFromTraining(exercise._id)}>Remove</button>
-                        <button onClick={() => this.editToggle(exercise)}>Edit</button>
+                        <button className="btn" onClick={() => this.removeExerciseFromTraining(exercise._id)}>Remove</button>
+                        <button className="btn" onClick={() => this.editToggle(exercise)}>Edit</button>
                       </div>
                     )
                   })
