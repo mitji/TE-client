@@ -10,6 +10,10 @@ class ExerciseDetails extends Component {
     userId: ''
   }
 
+  saveExercise = () => {
+    console.log('in')
+  }
+
   componentDidMount() {
     window.scrollTo(0, 0)
     const {id} = this.props.match.params; // get exercise id from url
@@ -42,9 +46,9 @@ class ExerciseDetails extends Component {
               <p>{exercise.description}</p>
               <p><strong>Duration:</strong> {exercise.duration}</p>
               {
-                (exercise._id !== userId) ?
+                (exercise.author !== userId) ?
                 (
-                  <button>Save</button>
+                  <button onClick={this.saveExercise}>Save</button>
                 )
                 : null
               }

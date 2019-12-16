@@ -3,7 +3,7 @@ import axios from 'axios';
 class Training {
   constructor() {
     this.training = axios.create({
-      baseURL: 'http://localhost:5000/my-trainings',
+      baseURL: process.env.REACT_APP_API_URL + '/trainings',
       withCredentials: true,
     });
   }

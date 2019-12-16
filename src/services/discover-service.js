@@ -3,7 +3,7 @@ import axios from 'axios';
 class Discover {
   constructor() {
     this.discover = axios.create({
-      baseURL: 'http://localhost:5000/discover',
+      baseURL: process.env.REACT_APP_API_URL + '/discover',
       withCredentials: true,
     });
   }
