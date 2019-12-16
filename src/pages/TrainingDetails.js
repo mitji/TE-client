@@ -34,6 +34,7 @@ class TrainingDetails extends Component {
 
     return(
       <div className="content">
+      <button onClick={() => this.props.history.push('/my-trainings')}>Back</button>
         {
           training ?
           (

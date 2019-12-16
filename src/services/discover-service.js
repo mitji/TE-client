@@ -14,6 +14,12 @@ class Discover {
           .then(({ data }) => data);
   }
 
+  save(id) {
+    return this.discover
+          .put(`${id}`)
+          .then(({ data }) => data);
+  }
+
 }
 
 const DiscoverService = new Discover();

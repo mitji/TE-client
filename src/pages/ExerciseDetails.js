@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import exercisesService from './../services/exercises-service';
 import profileService from './../services/profile-service';
+import discoverService from './../services/discover-service';
 
 class ExerciseDetails extends Component {
 
@@ -10,8 +11,15 @@ class ExerciseDetails extends Component {
     userId: ''
   }
 
-  saveExercise = () => {
-    console.log('in')
+  saveExercise = (e) => {
+    e.preventDefault();
+    console.log('in');
+    const id = this.state.exercise._id;
+    discoverService.save(id)
+      .then( () => {
+        console.log('added to favourites');
+      })
+      .catch( (err) => console.log(err));
   }
 
   componentDidMount() {

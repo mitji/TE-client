@@ -14,6 +14,7 @@ class Discover extends Component {
   }
 
   componentDidMount() {
+    window.scrollTo(0,0);
     discoverService.getAll()
       .then( (data) => {
         this.setState({publicExercises: data})
@@ -31,7 +32,7 @@ class Discover extends Component {
         {
           publicExercises ?
           (
-            <div class="discover-list">
+            <div className="discover-list">
               {
                 publicExercises.map( exercise => {
                   return (
