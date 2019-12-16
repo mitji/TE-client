@@ -2,11 +2,6 @@ import React, { Component } from 'react';
 import shortid from 'shortid';
 import { Link } from 'react-router-dom';
 
-import './../styles/navigation.scss';
-import './../styles/dashboard.scss';
-import './../styles/profile.scss';
-import './../styles/training.scss';
-
 class TrainingCard extends Component {
   constructor(props) {
     super(props);

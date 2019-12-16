@@ -21,14 +21,6 @@ class Profile {
   }
 }
 
-// ProfilesService.getAll()
-//   .then( (response) => response.data )
-//   .catch( (err) => console.log(err));
-
-// ProfilesService.getOneById( idString )
-//   .then( ( { data } ) => data)
-//   .catch( (err) => console.log(err));
-
 const ProfileService = new Profile();
 
 export default ProfileService;
