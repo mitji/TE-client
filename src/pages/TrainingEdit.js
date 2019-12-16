@@ -44,6 +44,14 @@ class TrainingEdit extends Component {
       .catch( (err) => console.log(err));
   }
 
+  deleteTraining = (e) => {
+    e.preventDefault();
+    const trainingId = this.state.training._id;
+    trainingsService.deleteOne(trainingId)
+      .then( () => this.props.history.push('/my-trainings'))
+      .catch( (err) => console.log(err));
+  }
+
   removeExerciseFromTraining = (exerciseId) => {
     console.log('in')
     trainingsService.deleteExercise(this.state.training._id, exerciseId)
@@ -92,6 +100,7 @@ class TrainingEdit extends Component {
             <input type="text" name="sport" value={training.sport} onChange={this.handleInput}/>
             <button>Save</button>
             <button onClick={() => this.props.history.goBack()}>Back</button>
+            <button onClick={this.deleteTraining}>Delete training</button>
           </form>
           <div className="exercises-edit">
             {

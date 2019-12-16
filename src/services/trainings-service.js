@@ -29,7 +29,7 @@ class Training {
 
   deleteOne(id) {
     return this.training
-      .get(`/${id}`)
+      .delete(`/${id}`)
       .then(({ data }) => data)
   }
 
