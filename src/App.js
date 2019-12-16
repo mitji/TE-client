@@ -10,8 +10,10 @@ import Profile from './pages/Profile';
 import MyTrainings from './pages/MyTrainings';
 import Discover from './pages/Discover';
 import ExerciseDetails from './pages/ExerciseDetails';
+import ExerciseNew from './pages/ExerciseNew';
 import ExerciseEdit from './pages/ExerciseEdit';
 import TrainingDetails from './pages/TrainingDetails';
+import TrainingNew from './pages/TrainingNew';
 import TrainingEdit from './pages/TrainingEdit';
 
 import SearchBar from './components/SearchBar';
@@ -40,11 +42,13 @@ class App extends Component {
 
           {/* INNER ROUTES */}
           {/* -- Profile -- */}
+          <PrivateRoute exact path="/profile/new-exercise" component={ExerciseNew} />
           <PrivateRoute exact path="/profile/:id" component={ExerciseDetails} />
           <PrivateRoute exact path="/profile/:id/edit" component={ExerciseEdit} />
           {/* edit profile route */}
 
           {/* -- My trainings -- */}
+          <PrivateRoute exact path="/my-trainings/new-training" component={TrainingNew} />
           <PrivateRoute exact path="/my-trainings/:id" component={TrainingDetails} />
           <PrivateRoute exact path="/my-trainings/:id/edit" component={TrainingEdit} />
           {/* -- Discover -- */}

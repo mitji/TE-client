@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import shortid from 'shortid';
 import { Link } from 'react-router-dom';
 
+import profileService from './../services/profile-service';
+
 import './../styles/dashboard.scss';
 
 class ExerciseList extends Component {
@@ -10,7 +12,19 @@ class ExerciseList extends Component {
 
     this.state = {
       exerciseArr: this.props.exercises,
+      listLength: this.props.exercises.length
     }
+  }
+
+  unsaveExercise(id) {
+    
+    profileService.unsaveExercise(id)
+      .then( (user) => {
+        const savedExercises = user.savedExercises;
+        this.props.updateLength();
+        this.setState({exerciseArr: savedExercises});
+      })
+      .catch( (err) => console.log(err));
   }
 
   render() {
@@ -35,6 +49,13 @@ class ExerciseList extends Component {
                   : null
                 }
               </Link>
+              {
+                (exercise.author._id !== this.props.userId && !this.props.inEditTraining) ?
+                  (
+                    <button onClick={() => this.unsaveExercise(exercise._id)}>Unsave</button>
+                  )
+                : null
+              }
               {
                 this.props.inEditTraining
                   ? <button onClick={()=>this.props.addExercise(exercise._id)}>Add to training</button>

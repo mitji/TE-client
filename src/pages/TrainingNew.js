@@ -1,18 +1,19 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 import trainingsService from './../services/trainings-service';
 import profileService from './../services/profile-service';
 
 import ExerciseList from './../components/ExerciseList';
 
-class TrainingEdit extends Component {
+class TrainingNew extends Component {
 
   state = {
     training: {},
+    trainingId: '',
     trainingExercises: [],
     user: {}
   }
-
+ 
   handleInput = e => {
     const { name, value } = e.target;
     const trainingCopy = this.state.training;
@@ -20,7 +21,7 @@ class TrainingEdit extends Component {
     this.setState({ training: trainingCopy });
   };
 
-  updateTraining = (e) => {
+  saveTraining = (e) => {
     e.preventDefault();
     const id = this.state.training._id;
     const { title, description, duration, sport } = this.state.training;
@@ -30,12 +31,11 @@ class TrainingEdit extends Component {
         this.setState({ training: modifiedTraining });
         this.props.history.push(`/my-trainings/${id}`);
       })
-      .catch( (err) => console.log(err));
+      .catch( (err) => console.log(err));  
   }
 
   addExercise = (exerciseId) => {
     const trainingId = this.state.training._id;
-
     trainingsService.addExercise(trainingId, exerciseId)
       .then( (result) => {
         const trainingExercises = result.data.exercises;
@@ -45,7 +45,6 @@ class TrainingEdit extends Component {
   }
 
   removeExerciseFromTraining = (exerciseId) => {
-    console.log('in')
     trainingsService.deleteExercise(this.state.training._id, exerciseId)
       .then( (data) => {
         const trainingExercises = data.exercises;
@@ -55,20 +54,26 @@ class TrainingEdit extends Component {
   }
 
   componentDidMount() {
-    window.scrollTo(0, 0)
-    const {id} = this.props.match.params;
+    window.scrollTo(0,0);
+    // *LOGIC* --> with the current model, to be able to add exercises in the new training, we need to 
+    // create the training when the page is loaded, so when the user saves the info, it is actually
+    // updating the training that has just been created
+    const title = ' ';
+    const description = ' ';
+    const duration = '0';
+    const sport = ' ';
 
-    trainingsService.getOne(id)
-      .then( (training) => {
+    trainingsService.create({title, description, duration, sport})
+      .then( (newTraining) => {
         profileService.getUser()
           .then( (userInfo) => {
-            this.setState({training});
-            this.setState({trainingExercises: training.exercises});
+            this.setState({training: newTraining});
+            this.setState({trainingId: newTraining._id});
+            this.setState({trainingExercises: newTraining.exercises});
             this.setState({user: userInfo});
           })
           .catch( (err) => console.log(err));
       })
-    
   }
 
   render() {
@@ -81,7 +86,7 @@ class TrainingEdit extends Component {
     return(
       <main className="content edit-training">
         <section className="edit-training__info">
-          <form onSubmit={this.updateTraining}>
+          <form onSubmit={this.saveTraining}>
             <label htmlFor="">Title</label>
             <input type="text" value={training.title} name="title" onChange={this.handleInput} />
             <label htmlFor="">Description</label>
@@ -157,4 +162,4 @@ class TrainingEdit extends Component {
   }
 }
 
-export default TrainingEdit;
+export default TrainingNew;

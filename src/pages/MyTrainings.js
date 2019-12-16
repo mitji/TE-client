@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Link } from 'react-router-dom';
 import trainingService from './../services/trainings-service';
 
 import TrainingCard from './../components/TrainingCard';
@@ -11,6 +12,7 @@ class MyTrainings extends Component {
   }
  
   componentDidMount() {
+    window.scrollTo(0, 0)
     trainingService.getAll()
       .then( (trainings) => {
         this.setState({trainings: trainings});
@@ -20,10 +22,10 @@ class MyTrainings extends Component {
 
   render() {
     const userTrainings = this.state.trainings;
-    console.log('user trainings', userTrainings);
     return(
       <div className="content">
         <h1>My Trainings</h1>
+        <Link to={'/my-trainings/new-training'}><button>New training</button></Link>
         <div className="trainings-list ">
           {
             userTrainings ?

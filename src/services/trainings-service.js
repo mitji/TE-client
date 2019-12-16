@@ -27,6 +27,18 @@ class Training {
           .then(({ data }) => data);
   }
 
+  deleteOne(id) {
+    return this.training
+      .get(`/${id}`)
+      .then(({ data }) => data)
+  }
+
+  deleteExercise(trainingId, exerciseId) {
+    return this.training
+      .put(`/${trainingId}/${exerciseId}/delete`)
+      .then(({ data }) => data)
+  }
+
   modifyOne(modifiedTraining, id) {
     const { title, description, duration, sport } = modifiedTraining;
     return this.training    

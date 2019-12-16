@@ -1,56 +1,39 @@
-import React, { Component } from 'react';
-import exercisesService from './../services/exercises-service'
+import React, {Component} from 'react';
+import exercisesService from './../services/exercises-service';
 
-class ExerciseEdit extends Component {
+class ExerciseNew extends Component {
 
   state = {
-    exercise: {}
+    exercise: []
   }
-
-  handleInput = e => {
+ 
+  handleInput = (e) => {
     const { name, value } = e.target;
     const exerciseCopy = this.state.exercise;
     exerciseCopy[name] = value;
     this.setState({ exercise: exerciseCopy });
   };
 
-  updateExercise = (e) => {
+  saveExercise = (e) => {
     e.preventDefault();
-    const id = this.state.exercise._id;
-    const {title, description, duration, sport, type, video_url, img_url, share} = this.state.exercise;
-    
-    exercisesService.modifyOne({title, description, duration, sport, type, video_url, img_url, share}, id)
-      .then( (updatedExercise) => {
-        this.setState({ exercise: updatedExercise });
-        this.props.history.goBack();
+    const {title, description, duration, sport, type, video_url, img_url, share} = this.state.exercise; 
+    exercisesService.create({title, description, duration, sport, type, video_url, img_url, share})
+      .then( () => {
+        this.props.history.push('/profile');
       })
       .catch( (err) => console.log(err));
+      
   }
 
-  deleteExercise = () => {
-    exercisesService.deleteOne(this.state.exercise._id)
-      .then( () => {
-        this.props.history.push('/profile')
-      })
-      .catch( (err) => console.log(err));
-  } 
-
   componentDidMount() {
-    window.scrollTo(0, 0)
-    const {id} = this.props.match.params; // get id from url
-    exercisesService.getOne(id)
-      .then( (exercise) => {
-        this.setState({exercise: exercise});
-      })
-      .catch( (err) => console.log(err));
+    window.scrollTo(0,0);
   }
 
   render() {
     return(
-      <main className="content">
-        <h1>Exercise details</h1>
-
-        <form onSubmit={this.updateExercise}>
+      <div className="content">
+        <h1>New exercise</h1>
+        <form onSubmit={this.saveExercise}>
           <label htmlFor="">Title</label>
           <input type="text" value={this.state.exercise.title} name="title" onChange={this.handleInput} />
           <label htmlFor="">Description</label>
@@ -71,11 +54,10 @@ class ExerciseEdit extends Component {
         </form>
 
         <button onClick={() => this.props.history.goBack()}>Back</button>
-        <button onClick={this.deleteExercise}>Delete</button>
-
-      </main>
+                  
+      </div>
     )
   }
 }
 
-export default ExerciseEdit;
+export default ExerciseNew;

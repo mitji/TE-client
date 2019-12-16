@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import profileService from './../services/profile-service';
 import shortid from 'shortid';
 import { Link } from 'react-router-dom';
+
+import profileService from './../services/profile-service';
+
 
 import './../styles/navigation.scss';
 import './../styles/dashboard.scss';
@@ -13,25 +15,22 @@ import ExerciseList from './../components/ExerciseList';
 class Dashboard extends Component {
 
   state = {
-    user: {}
+    user: {},
+    savedExercisesLength: 0
   }
 
-  unsaveExercise(e, id) {
-    profileService.unsaveExercise(id)
-      .then( (user) => {
-        //button.parentElement.remove();  
-        this.setState(user);
-      })
-      .catch( (err) => console.log(err));
-    // const exerciseContainer = e.target.parentElement;
-    // exerciseContainer.parentElement.removeChild(exerciseContainer);
+  updateLength = () => {
+    let length = this.state.savedExercisesLength;
+    length -= 1;
+    this.setState({savedExercisesLength: length});
   }
-  
 
-  componentDidMount(id) {
+  componentDidMount() {
+    window.scrollTo(0, 0)
     profileService.getUser()
       .then( (userInfo) => {
         this.setState({user: userInfo});
+        this.setState({savedExercisesLength: userInfo.savedExercises.length})
       })
       .catch( (err) => console.log(err));    
   };
@@ -40,11 +39,12 @@ class Dashboard extends Component {
     const userExercises = this.state.user.exercises;
     const savedExercises = this.state.user.savedExercises;
     const userTrainings = this.state.user.trainings;
-    
+
     return (
       <main className="content">
           <h1>Profile</h1>
         <div className="profile-container">
+          {/* List of user Trainings */}
           <div className="profile-column"> 
             {
               userTrainings 
@@ -65,6 +65,7 @@ class Dashboard extends Component {
               : null
             }
           </div>
+          {/* List of user Exercises */}
           <div className="profile-column"> 
             {
               userExercises 
@@ -72,7 +73,7 @@ class Dashboard extends Component {
                 : <h2>Your Exercises (0)</h2>
                 
             }   
-            <Link>Create exercise</Link>        
+            <Link to={'/profile/new-exercise'}>Create exercise</Link>        
             { userExercises ?
               (
                 <ExerciseList exercises={userExercises} userId={this.state.user._id}/>
@@ -80,17 +81,17 @@ class Dashboard extends Component {
               : null
             }
           </div>
-
+          {/* List of user saved exercises */}
           <div className="profile-column">
             {
               savedExercises 
-                ? <h2>Saved Exercises ({savedExercises.length})</h2>
+                ? <h2>Saved Exercises ({this.state.savedExercisesLength})</h2>
                 : <h2>Saved Exercises (0)</h2>
             }  
             { 
               savedExercises ?
                 (
-                  <ExerciseList exercises={userExercises} userId={this.state.user._id}/>
+                  <ExerciseList exercises={savedExercises} userId={this.state.user._id} updateLength={this.updateLength}/>
                 )
               : null
             }

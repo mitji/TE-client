@@ -18,8 +18,9 @@ class TrainingDetails extends Component {
       training: this.props.training
     }
   }
-
+  
   componentDidMount() {
+    window.scrollTo(0, 0)
     const {id} = this.props.match.params; // get id from url
     trainingService.getOne(id)
       .then( (training) => {
