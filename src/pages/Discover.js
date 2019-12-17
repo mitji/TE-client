@@ -12,7 +12,8 @@ import './../styles/discover.scss';
 class Discover extends Component {
 
   state = {
-    exercises: null,
+    allExercises: null,
+    exercisesCopy: null,
     sport: 'all',
     type: 'all'
   }
@@ -35,17 +36,44 @@ class Discover extends Component {
       searchService.getResults(values.search)
         .then( (data) =>{
           //console.log('search result', data);
-          this.setState({exercises: data})
+          this.setState({allExercises: data, exercisesCopy: data})
         })
         .catch( (err) => console.log(err));
     }
     else {
       discoverService.getAll()
         .then( (data) => {
-          this.setState({exercises: data})
+          this.setState({allExercises: data, exercisesCopy: data})
         })
         .catch( (err) => console.log(err));
     }
+  }
+
+  filter = (e) => {
+    e.preventDefault();
+    console.log(this.state.sport, this.state.type);
+    const currentExs = this.state.allExercises;
+    let filteredExs = [];
+
+    // filter by sport --> IMPROVEBABLE
+    if (this.state.sport === 'all') {
+      filteredExs = currentExs;
+    } else {
+      filteredExs = currentExs.filter( ex => {
+        return ex.sport === this.state.sport;
+      })
+    }
+
+    // filter by type
+    if (this.state.type === 'all') {
+      filteredExs = filteredExs;
+    } else {
+      filteredExs = filteredExs.filter( ex => {
+        return ex.type === this.state.type;
+      })
+    }
+
+    this.setState({exercisesCopy: filteredExs});
   }
 
   // TODO
@@ -55,14 +83,14 @@ class Discover extends Component {
 
 
   render() {
-    console.log('exercises in parent', this.state.exercises);
+    console.log('exercises in parent', this.state.exercisesCopy);
     return(
       <div className="content">
         <h1>Discover page</h1>
 
         <form onSubmit={this.filter}>
           <select name="" id="" ref="sport" onChange={(e) => this.setState({ sport: e.target.value })}>
-            <option value="" default>All</option>
+            <option value="all" default>All</option>
             <option value="basketball">Basketball</option>
             <option value="rugby">Rugby</option>
             <option value="football">Football</option>
@@ -72,8 +100,8 @@ class Discover extends Component {
             <option value="skills">Skills</option>
             <option value="attack">Attack</option>
             <option value="defense">Defense</option>
-            <option value="strength">Strength $ Conditioning</option>
-            <option value="stretc">Stretch</option>
+            <option value="sc">Strength $ Conditioning</option>
+            <option value="stretch">Stretch</option>
             <option value="recovery">Recovery</option>
           </select>
 
@@ -81,8 +109,8 @@ class Discover extends Component {
         </form>
         
         {
-          this.state.exercises
-           ? <DiscoverList exercises={this.state.exercises}/>
+          this.state.exercisesCopy
+           ? <DiscoverList exercises={this.state.exercisesCopy}/>
            : null
         }
         
