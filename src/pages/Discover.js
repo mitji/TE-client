@@ -1,5 +1,9 @@
 import React, {Component} from 'react';
 import shortid from 'shortid';
+import queryString from 'query-string';
+
+import searchService from './../services/search-service';
+import discoverService from './../services/discover-service';
 
 import DiscoverList from './../components/DiscoverList';
 
@@ -8,17 +12,50 @@ import './../styles/discover.scss';
 class Discover extends Component {
 
   state = {
-    //publicExercises: [],
+    exercises: null,
     sport: 'all',
     type: 'all'
   }
 
   componentDidMount() {
     window.scrollTo(0,0);
+    this.handleSearch();  
+  }
+  
+  componentDidUpdate(prevProps) {
+    if (prevProps.location.search !== this.props.location.search) {
+      console.log('updated')
+      this.handleSearch();
+    }  
   }
 
+  handleSearch = () => {
+    const values = queryString.parse(this.props.location.search)
+    if(values.search) {
+      searchService.getResults(values.search)
+        .then( (data) =>{
+          //console.log('search result', data);
+          this.setState({exercises: data})
+        })
+        .catch( (err) => console.log(err));
+    }
+    else {
+      discoverService.getAll()
+        .then( (data) => {
+          this.setState({exercises: data})
+        })
+        .catch( (err) => console.log(err));
+    }
+  }
+
+  // TODO
+  // ADD SOMETHING
+
+  // FIXME
+
+
   render() {
-    console.log(this.state.sport, this.state.type)
+    console.log('exercises in parent', this.state.exercises);
     return(
       <div className="content">
         <h1>Discover page</h1>
@@ -43,7 +80,12 @@ class Discover extends Component {
           <button className="btn">Filter</button>
         </form>
         
-        <DiscoverList/>
+        {
+          this.state.exercises
+           ? <DiscoverList exercises={this.state.exercises}/>
+           : null
+        }
+        
              
       </div>
     )

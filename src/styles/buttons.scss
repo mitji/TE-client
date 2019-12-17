@@ -18,6 +18,10 @@
   outline: none;
   cursor: pointer;
   background: none;
+  &__unsave {
+    width: 25px;
+    margin-bottom: 15px;
+  }
 }
 
 .btn:hover {

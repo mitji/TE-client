@@ -55,7 +55,9 @@ class ExerciseList extends Component {
               {
                 (exercise.author._id !== this.props.userId && !this.props.inEditTraining) ?
                   (
-                    <button className="btn btn-delete" onClick={() => this.unsaveExercise(exercise._id)}>Unsave</button>
+                    <button className="btn-icon" onClick={() => this.unsaveExercise(exercise._id)}>
+                      <img src={"/bin.png"} alt="unsave" className="btn-icon__unsave"/>
+                    </button>
                   )
                 : null
               }

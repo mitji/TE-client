@@ -7,7 +7,7 @@ class SearchBar extends Component {
   }
 
   handleSearch = (e) => {
-    const { name, value } = e.target;
+    const { value } = e.target;
     this.setState({search: value})
   }
 
@@ -18,15 +18,14 @@ class SearchBar extends Component {
         {isLoggedin ? 
           (
             <nav>
-            <form action="">
-              <input 
-                type="text" 
-                value={this.state.search} 
-                name="search"
-                onChange={this.handleSearch}
-                placeholder="Search by title..."/>
-            </form>
-              
+              <form onSubmit={(e) => this.props.submit(e,this.state.search)}>
+                <input 
+                  type="text" 
+                  value={this.state.search} 
+                  name="search"
+                  onChange={this.handleSearch}
+                  placeholder="Search by title..."/>
+              </form>  
               <p>Hi {user.name}</p>
             </nav>
           ) 
