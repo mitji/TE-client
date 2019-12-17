@@ -1,0 +1,35 @@
+.auth-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 500px;
+  text-align: center;
+  height: 100vh;
+  h1 {
+    margin-bottom: 50px;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    label {
+      margin: 15px 0;
+    }
+    input {
+      height: 33px;
+      border-radius: 5px;
+      border: 1px solid grey;
+      outline: none;
+      padding: 3px 20px;
+      width: 320px;
+      align-self: center;
+    }
+    .submit-btn {
+      margin-top: 15px;
+      cursor: pointer;
+      width: 100px;
+      align-self: center;
+    }
+  }
+  
+}

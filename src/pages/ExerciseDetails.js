@@ -81,6 +81,7 @@ class ExerciseDetails extends Component {
                         ? <button className="btn btn-success" onClick={this.saveExercise}>Save</button>
                         : <button className="btn btn-delete" onClick={this.unsaveExercise}>Unsave</button>
                     }
+                    <h4>Comments</h4>
                     </div>
                   )
                   : null

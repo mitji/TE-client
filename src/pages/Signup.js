@@ -25,7 +25,7 @@ class Signup extends Component {
   render() {
     const { email, name, lastName, password } = this.state;
     return (
-      <div>
+      <div className="auth-container">
         <h1>Sign Up</h1>
         <form onSubmit={this.handleFormSubmit}>
           <label>Email:</label>
@@ -59,7 +59,7 @@ class Signup extends Component {
             onChange={this.handleChange}
           />
 
-          <input type="submit" value="Signup" />
+          <input className="submit-btn" type="submit" value="Signup" />
         </form>
 
         <p>Already have account?</p>

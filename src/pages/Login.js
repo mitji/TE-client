@@ -23,7 +23,7 @@ class Login extends Component {
     const { email, password } = this.state;
 
     return (
-      <div>
+      <div className="auth-container">
         <h1>Login</h1>
         <form onSubmit={this.handleFormSubmit}>
           <label>Email:</label>
@@ -42,7 +42,7 @@ class Login extends Component {
             onChange={this.handleChange}
           />
 
-          <input type="submit" value="Login" />
+          <input className="submit-btn" type="submit" value="Login" />
           <p>Not a user yet?</p>
           <Link to={'/signup'}>Sign up</Link>
         </form>

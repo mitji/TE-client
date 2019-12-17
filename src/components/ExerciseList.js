@@ -30,25 +30,28 @@ class ExerciseList extends Component {
   render() {
     const exerciseArr = this.state.exerciseArr;
     return(
-      <div className="exercises-container">
+      <div className="list-container">
         {exerciseArr.map( exercise => {
           return (
-            <div className="exercises-container__item" key={shortid.generate()}>
-              <Link to={`/profile/${exercise._id}`}>
-                <p>{exercise.title}</p>
-                <span className={`item-type ${exercise.type}`}>{exercise.type}</span>
-                <p>{exercise.description}</p>
-                {
-                  (exercise.author._id !== this.props.userId) ?
-                  (
-                    <div>
-                      <p><strong>Author: </strong>{exercise.author.name} {exercise.author.lastName}</p>
-                      <p><strong>Duration:</strong>{exercise.duration}</p>
-                    </div>
-                  )
-                  : null
-                }
-              </Link>
+            <div>
+              <div className="list-container__item" key={shortid.generate()}>
+                <Link to={`/profile/${exercise._id}`}>
+                  <p>{exercise.title}</p>
+                  <span className={`item-type ${exercise.type}`}>{exercise.type}</span>
+                  <p>{exercise.description}</p>
+                  {
+                    (exercise.author._id !== this.props.userId) ?
+                    (
+                      <div>
+                        <p><strong>Author: </strong>{exercise.author.name} {exercise.author.lastName}</p>
+                        <p><strong>Duration:</strong>{exercise.duration}</p>
+                      </div>
+                    )
+                    : null
+                  }
+                </Link>
+                
+              </div>
               {
                 (exercise.author._id !== this.props.userId && !this.props.inEditTraining) ?
                   (
@@ -61,7 +64,7 @@ class ExerciseList extends Component {
                   ? <button className="btn btn-success" onClick={()=>this.props.addExercise(exercise._id)}>Add to training</button>
                   : null
               }
-            </div>
+              </div>
           )
         })}
         </div>

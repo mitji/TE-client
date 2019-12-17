@@ -14,7 +14,6 @@ class DiscoverCard extends Component {
 
   render() {
     const exercise = this.state.exercise;
-
     return(
       <div className="discover-card" key={shortid.generate()}>
         <Link to={`/discover/${exercise._id}`}>
@@ -22,7 +21,7 @@ class DiscoverCard extends Component {
             <h4>{exercise.title}</h4>
             <p>{exercise.duration} min | {exercise.sport}</p>
             <p>{exercise.type}</p>
-            <p>By {exercise.author.name} {exercise.author.lastName}</p>
+            <p>by {exercise.author.name} {exercise.author.lastName}</p>
           </div>
         </Link>
       </div>

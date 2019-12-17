@@ -1,31 +1,23 @@
 import React, {Component} from 'react';
 import shortid from 'shortid';
 
-import DiscoverCard from './../components/DiscoverCard';
-
-import discoverService from './../services/discover-service';
+import DiscoverList from './../components/DiscoverList';
 
 import './../styles/discover.scss';
 
 class Discover extends Component {
 
   state = {
-    publicExercises: [],
+    //publicExercises: [],
     sport: 'all',
     type: 'all'
   }
 
   componentDidMount() {
     window.scrollTo(0,0);
-    discoverService.getAll()
-      .then( (data) => {
-        this.setState({publicExercises: data})
-      })
-      .catch( (err) => console.log(err));
   }
 
   render() {
-    const publicExercises = this.state.publicExercises;
     console.log(this.state.sport, this.state.type)
     return(
       <div className="content">
@@ -50,22 +42,9 @@ class Discover extends Component {
 
           <button className="btn">Filter</button>
         </form>
-        {
-          publicExercises ?
-          (
-            <div className="discover-list">
-              {
-                publicExercises.map( exercise => {
-                  return (
-                    <DiscoverCard exercise={exercise} />
-                  )
-                })
-              }
-            </div>
-            
-          )
-          : null
-        }
+        
+        <DiscoverList/>
+             
       </div>
     )
   }

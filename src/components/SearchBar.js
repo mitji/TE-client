@@ -2,6 +2,15 @@ import React, { Component } from 'react';
 import { withAuth } from '../services/AuthProvider';
 
 class SearchBar extends Component {
+  state = {
+    search: ''
+  }
+
+  handleSearch = (e) => {
+    const { name, value } = e.target;
+    this.setState({search: value})
+  }
+
   render() {
     const { user, logout, isLoggedin } = this.props;
     return (
@@ -9,7 +18,15 @@ class SearchBar extends Component {
         {isLoggedin ? 
           (
             <nav>
-              <input type="text" placeholder="Search exercise..."/>
+            <form action="">
+              <input 
+                type="text" 
+                value={this.state.search} 
+                name="search"
+                onChange={this.handleSearch}
+                placeholder="Search by title..."/>
+            </form>
+              
               <p>Hi {user.name}</p>
             </nav>
           ) 

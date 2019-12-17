@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import "./App.scss";
+import "./styles/auth.scss";
 
 import Signup from './pages/Signup';
 import Login from './pages/Login';

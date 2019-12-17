@@ -46,18 +46,18 @@ class Dashboard extends Component {
         <div className="profile-container">
           {/* List of user Trainings */}
           <div className="profile-column"> 
-          <div className="header">
-            {
-              userTrainings 
-                ? <h2>Your Trainings ({userTrainings.length})</h2>
-                : <h2>Your Trainings (0)</h2>
-                
-            }
-          </div>
+            <div className="header">
+              {
+                userTrainings 
+                  ? <h2>Your Trainings ({userTrainings.length})</h2>
+                  : <h2>Your Trainings (0)</h2>
+                  
+              }
+            </div>
              
             { userTrainings ?
               (
-                <div className="training-container">
+                <div className="list-container list-container--trainings">
                 {userTrainings.map( training => {
                   return (
                     <TrainingCard training={training} key={shortid.generate()}/>
@@ -88,13 +88,13 @@ class Dashboard extends Component {
           </div>
           {/* List of user saved exercises */}
           <div className="profile-column">
-          <div className="header">
-            {
-              savedExercises 
-                ? <h2>Saved Exercises ({this.state.savedExercisesLength})</h2>
-                : <h2>Saved Exercises (0)</h2>
-            } 
-          </div>
+            <div className="header">
+              {
+                savedExercises 
+                  ? <h2>Saved Exercises ({this.state.savedExercisesLength})</h2>
+                  : <h2>Saved Exercises (0)</h2>
+              } 
+            </div>
              
             { 
               savedExercises ?
