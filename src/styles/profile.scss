@@ -1,5 +1,10 @@
 @import 'colors';
-
+.profile-header {
+  display: flex;
+  a {
+    margin-left: auto;
+  }
+}
 .profile-container {
   display: flex;
   justify-content: space-between;
@@ -31,6 +36,8 @@
   overflow-y: scroll;
   padding-right: 20px;
   &__item {
+    display: flex;
+    flex-direction: column;
     padding: 15px;
     width: 100%;
     box-sizing: border-box;
@@ -39,6 +46,10 @@
     border-radius: 12px;
     margin-bottom: 8px;
     cursor: pointer;
+    a {
+      display: flex;
+      flex-direction: column;
+    }
     &:last-of-type {
       border-bottom: none;
     }
@@ -47,6 +58,12 @@
       transition: 0.3s;     
       background-color: #f3f3f3;
     } 
+    button {
+      width: 20px;
+      margin-left: auto;
+      margin-right: 14px;
+      margin-top: -30px;
+    }
   }
   &--trainings {
     padding: 0px 10px 20px;
@@ -64,11 +81,14 @@
   border-radius: 3px;
   padding: 2px 5px;
   box-sizing: border-box;
+  text-align: center;
 }
 .defense {
   background-color: bisque;
+  width: 70px;
 }
 .skills {
   background-color: mediumturquoise;
+  width: 50px;
 }
 

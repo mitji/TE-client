@@ -25,8 +25,16 @@ class Auth {
       .then(response => response.data);
   }
 
+  edit(updatedUser) {
+    const { email, name, lastName, password } = updatedUser;
+    return this.auth
+      .put('/auth/me', { email, name, lastName, password })
+      .then(response => response.data);
+  }
+
   me() {
-    return this.auth.get('/auth/me')
+    return this.auth
+      .get('/auth/me')
       .then(response => response.data);
   }
 }

@@ -42,7 +42,13 @@ class Dashboard extends Component {
 
     return (
       <main className="content">
+      
+        <div className="profile-header">
           <h1>Profile</h1>
+          <Link to={'/profile/edit'}>
+            <button className="btn btn-edit">Edit profile</button>
+          </Link> 
+        </div>              
         <div className="profile-container">
           {/* List of user Trainings */}
           <div className="profile-column"> 

@@ -9,11 +9,10 @@ class DiscoverList extends Component {
 
   render() {
     const exercisesList = this.props.exercises;
-    console.log('discover list -->', exercisesList)
     return(
       <div className="discover-list">
         {
-          exercisesList ?
+          exercisesList.length!==0 ?
           (
             exercisesList.map( exercise => {
               return <DiscoverCard exercise={exercise} key={shortid.generate()}/>

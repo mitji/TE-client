@@ -8,7 +8,10 @@ class ExerciseEdit extends Component {
   }
 
   handleInput = e => {
-    const { name, value } = e.target;
+    const target = e.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+
     const exerciseCopy = this.state.exercise;
     exerciseCopy[name] = value;
     this.setState({ exercise: exerciseCopy });
@@ -63,20 +66,32 @@ class ExerciseEdit extends Component {
           <label htmlFor="">Duration</label>
           <input type="number" value={this.state.exercise.duration} name="duration" onChange={this.handleInput}/>
           <label htmlFor="">Sport</label>
-          <input type="text" name="sport" value={this.state.exercise.sport} onChange={this.handleInput}/>
+          <select name="sport" id="" ref="sport" value={this.state.exercise.sport} onChange={this.handleInput}>
+            <option value="all">All</option>
+            <option value="basketball">Basketball</option>
+            <option value="rugby">Rugby</option>
+            <option value="football">Football</option>
+          </select>
           <label htmlFor="">Type</label>
-          <input type="text" name="type" value={this.state.exercise.type} onChange={this.handleInput}/>
+          <select name="type" id="" ref="type" value={this.state.exercise.type} onChange={this.handleInput}>
+            <option value="all">All</option>
+            <option value="skills">Skills</option>
+            <option value="attack">Attack</option>
+            <option value="defense">Defense</option>
+            <option value="sc">Strength $ Conditioning</option>
+            <option value="stretch">Stretch</option>
+            <option value="recovery">Recovery</option>
+          </select>
           <label htmlFor="">Video</label>
           <input type="text" name="video_url" value={this.state.exercise.video_url} onChange={this.handleInput}/>
           <label htmlFor="">Image</label>
           <input type="text" name="img_url" value={this.state.exercise.img_url} onChange={this.handleInput}/>
           <label htmlFor="">Share</label>
-          <input type="text" name="share" value={this.state.exercise.share} onChange={this.handleInput}/>
+          <input type="checkbox" name="share" checked={this.state.exercise.share} onChange={this.handleInput}/>
           <button className="btn">Save</button>
         </form>
 
-        <button className="btn" onClick={() => this.props.history.goBack()}>Back</button>
-        <button className="btn" onClick={this.deleteExercise}>Delete</button>
+        <button className="btn btn-delete" onClick={this.deleteExercise}>Delete</button>
 
       </main>
     )

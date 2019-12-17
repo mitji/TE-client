@@ -65,9 +65,7 @@ class Discover extends Component {
     }
 
     // filter by type
-    if (this.state.type === 'all') {
-      filteredExs = filteredExs;
-    } else {
+    if (this.state.type !== 'all') {
       filteredExs = filteredExs.filter( ex => {
         return ex.type === this.state.type;
       })
@@ -76,18 +74,10 @@ class Discover extends Component {
     this.setState({exercisesCopy: filteredExs});
   }
 
-  // TODO
-  // ADD SOMETHING
-
-  // FIXME
-
-
   render() {
-    console.log('exercises in parent', this.state.exercisesCopy);
     return(
       <div className="content">
         <h1>Discover page</h1>
-
         <form onSubmit={this.filter}>
           <select name="" id="" ref="sport" onChange={(e) => this.setState({ sport: e.target.value })}>
             <option value="all" default>All</option>
@@ -111,7 +101,7 @@ class Discover extends Component {
         {
           this.state.exercisesCopy
            ? <DiscoverList exercises={this.state.exercisesCopy}/>
-           : null
+           : <h2>No results :(</h2>
         }
         
              

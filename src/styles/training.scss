@@ -76,7 +76,22 @@
     margin-top: 30px
   }
   &__exercises {
-    margin-top: 15px;
+    margin-top: 20px;
+    margin-right: 20px;
+    display: flex;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e1e1e1;
+    &__details {
+      display: flex;
+      flex-direction: column;
+      width: 80%;
+    }
+    &__buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      flex-grow: 1;
+    }
   }
 }
 

@@ -50,17 +50,17 @@ class ExerciseList extends Component {
                     : null
                   }
                 </Link>
-                
+                {
+                  (exercise.author._id !== this.props.userId && !this.props.inEditTraining) ?
+                    (
+                      <button className="btn-icon" onClick={() => this.unsaveExercise(exercise._id)}>
+                        <img src={"/bin.png"} alt="unsave" className="btn-icon__unsave"/>
+                      </button>
+                    )
+                  : null
+                }     
               </div>
-              {
-                (exercise.author._id !== this.props.userId && !this.props.inEditTraining) ?
-                  (
-                    <button className="btn-icon" onClick={() => this.unsaveExercise(exercise._id)}>
-                      <img src={"/bin.png"} alt="unsave" className="btn-icon__unsave"/>
-                    </button>
-                  )
-                : null
-              }
+              
               {
                 this.props.inEditTraining
                   ? <button className="btn btn-success" onClick={()=>this.props.addExercise(exercise._id)}>Add to training</button>

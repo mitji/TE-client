@@ -7,7 +7,15 @@ import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Home from './pages/Home';
 
+// Routes
+import AnonRoute from './components/AnonRoute';
+import PrivateRoute from './components/PrivateRoute';
+
+import SearchBar from './components/SearchBar';
+import SideMenu from './components/SideMenu';
+
 import Profile from './pages/Profile';
+import ProfileEdit from './pages/ProfileEdit';
 import MyTrainings from './pages/MyTrainings';
 import Discover from './pages/Discover';
 import ExerciseDetails from './pages/ExerciseDetails';
@@ -17,15 +25,8 @@ import TrainingDetails from './pages/TrainingDetails';
 import TrainingNew from './pages/TrainingNew';
 import TrainingEdit from './pages/TrainingEdit';
 
-import SearchBar from './components/SearchBar';
-import SideMenu from './components/SideMenu';
-
-import AnonRoute from './components/AnonRoute';
-import PrivateRoute from './components/PrivateRoute';
 
 import './styles/buttons.scss';
-
-import searchService from './services/search-service';
 
 class App extends Component {
 
@@ -58,9 +59,9 @@ class App extends Component {
           {/* INNER ROUTES */}
           {/* -- Profile -- */}
           <PrivateRoute exact path="/profile/new-exercise" component={ExerciseNew} />
+          <PrivateRoute exact path="/profile/edit" component={ProfileEdit} />
           <PrivateRoute exact path="/profile/:id" component={ExerciseDetails} />
           <PrivateRoute exact path="/profile/:id/edit" component={ExerciseEdit} />
-          {/* edit profile route */}
 
           {/* -- My trainings -- */}
           <PrivateRoute exact path="/my-trainings/new-training" component={TrainingNew} />

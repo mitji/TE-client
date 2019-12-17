@@ -11,6 +11,11 @@ class SearchBar extends Component {
     this.setState({search: value})
   }
 
+  searchSubmit = (e) => {
+    this.props.submit(e,this.state.search);
+    this.setState({search: ''});
+  }
+
   render() {
     const { user, logout, isLoggedin } = this.props;
     return (
@@ -18,7 +23,7 @@ class SearchBar extends Component {
         {isLoggedin ? 
           (
             <nav>
-              <form onSubmit={(e) => this.props.submit(e,this.state.search)}>
+              <form onSubmit={(e) => this.searchSubmit(e)}>
                 <input 
                   type="text" 
                   value={this.state.search} 

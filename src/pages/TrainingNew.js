@@ -75,10 +75,11 @@ class TrainingNew extends Component {
       .then( (newTraining) => {
         profileService.getUser()
           .then( (userInfo) => {
-            this.setState({training: newTraining});
-            this.setState({trainingId: newTraining._id});
-            this.setState({trainingExercises: newTraining.exercises});
-            this.setState({user: userInfo});
+            this.setState({training: newTraining, 
+                          trainingId: newTraining._id, 
+                          trainingExercises: newTraining.exercises, 
+                          user: userInfo
+            });
           })
           .catch( (err) => console.log(err));
       })
@@ -92,80 +93,95 @@ class TrainingNew extends Component {
 
     
     return(
-      <main className="content edit-training">
-        <section className="edit-training__info">
-          <form onSubmit={this.saveTraining}>
-            <label htmlFor="">Title</label>
-            <input type="text" value={training.title} name="title" onChange={this.handleInput} />
-            <label htmlFor="">Description</label>
-            <textarea value={training.description} name="description" onChange={this.handleInput}/>
-            <label htmlFor="">Duration</label>
-            <input type="number" value={training.duration} name="duration" onChange={this.handleInput}/>
-            <label htmlFor="">Sport</label>
-            <input type="text" name="sport" value={training.sport} onChange={this.handleInput}/>
-            <button className="btn">Save</button>
-            <button className="btn" onClick={() => this.props.history.goBack()}>Back</button>
-            <button className="btn" onClick={this.cancelNewTraining}>Cancel</button>
-          </form>
-          <div className="exercises-edit">
-            {
-              trainingExercises ?
-                (
-                  trainingExercises.map( (exercise, i) => {
-                    return (
-                      <div className="training-info__exercises" key={i}>
-                        <h4>{exercise.title}</h4>
-                        <span className={`item-type ${exercise.type}`}>{exercise.type}</span>
-                        <p>{exercise.description}</p>
-                        <p><strong>Sport: </strong>{exercise.sport}</p>
-                        <button className="btn" onClick={() => this.removeExerciseFromTraining(exercise._id)}>Remove</button>
-                      </div>
-                    )
-                  })
-                
-                )
+      <main className="content">
+        <button className="btn-icon" onClick={() => this.props.history.goBack()}>
+          <img src={'/arrow.svg'} className="back-icon" alt=""/>
+        </button>
+        <div className="edit-training">
+          <section className="edit-training__info">
+            <form onSubmit={this.saveTraining}>
+              <label htmlFor="">Title</label>
+              <input type="text" value={training.title} name="title" onChange={this.handleInput} />
+              <label htmlFor="">Description</label>
+              <textarea value={training.description} name="description" onChange={this.handleInput}/>
+              <label htmlFor="">Duration</label>
+              <input type="number" value={training.duration} name="duration" onChange={this.handleInput}/>
+              <label htmlFor="">Sport</label>
+              <select name="sport" id="" ref="sport" onChange={this.handleInput}>
+                <option value="all" default>All</option>
+                <option value="basketball">Basketball</option>
+                <option value="rugby">Rugby</option>
+                <option value="football">Football</option>
+              </select>
+              <button className="btn">Save</button>
+              <button className="btn" onClick={() => this.props.history.goBack()}>Back</button>
+              <button className="btn" onClick={this.cancelNewTraining}>Cancel</button>
+            </form>
+            <div className="exercises-edit">
+              {
+                trainingExercises ?
+                  (
+                    trainingExercises.map( (exercise, i) => {
+                      return (
+                        <div className="training-info__exercises" key={i}>
+                          <div className="training-info__exercises__details">
+                            <h4>{exercise.title}</h4>
+                            <span className={`item-type ${exercise.type}`}>{exercise.type}</span>
+                            <p>{exercise.description}</p>
+                            <p><strong>Sport: </strong>{exercise.sport}</p>
+                          </div>
+                          <div className="training-info__exercises__buttons">
+                            <button className="btn" onClick={() => this.removeExerciseFromTraining(exercise._id)}>Remove</button>
+                          </div>
+                        </div>
+                      )
+                    })
                   
-              : null
+                  )
+                    
+                : null
+              }
+            </div>
+          </section>
+          <section className="edit-training__user-exercises">
+            {
+              userExercises 
+                ? <h2>Your Exercises ({userExercises.length})</h2>
+                : <h2>Your Exercises (0)</h2>  
+            }  
+            { userExercises ?
+                  (
+                    <ExerciseList
+                      exercises={userExercises}
+                      userId={this.state.user._id} 
+                      inEditTraining={true}
+                      addExercise={this.addExercise}
+                    />
+                  )
+                  : null
+                }
+          </section>
+          <section className="edit-training__saved-exercises">
+            {
+              savedExercises
+                ? <h2>Saved Exercises ({savedExercises.length})</h2>
+                : <h2>Saved Exercises (0)</h2>
             }
-          </div>
-        </section>
-        <section className="edit-training__user-exercises">
-          {
-            userExercises 
-              ? <h2>Your Exercises ({userExercises.length})</h2>
-              : <h2>Your Exercises (0)</h2>  
-          }  
-          { userExercises ?
+            {
+              savedExercises ?
                 (
                   <ExerciseList
-                    exercises={userExercises}
+                    exercises={savedExercises}
                     userId={this.state.user._id} 
                     inEditTraining={true}
                     addExercise={this.addExercise}
                   />
                 )
-                : null
-              }
-        </section>
-        <section className="edit-training__saved-exercises">
-          {
-            savedExercises
-              ? <h2>Saved Exercises ({savedExercises.length})</h2>
-              : <h2>Saved Exercises (0)</h2>
-          }
-          {
-            savedExercises ?
-              (
-                <ExerciseList
-                  exercises={savedExercises}
-                  userId={this.state.user._id} 
-                  inEditTraining={true}
-                  addExercise={this.addExercise}
-                />
-              )
-            : null
-          }
-        </section>
+              : null
+            }
+          </section>
+        </div>
+        
       </main>
     )
   }
