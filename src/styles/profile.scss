@@ -4,6 +4,20 @@
   a {
     margin-left: auto;
   }
+  // modifier
+  &--details {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #E1E1E1;
+    flex-direction: column;
+    a {
+      margin-left: 30px;
+      align-self: center;
+    }
+    &__info {
+      display: flex;
+      width: 100%;
+    }
+  }
 }
 .profile-container {
   display: flex;

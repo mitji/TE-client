@@ -60,18 +60,22 @@ class ExerciseDetails extends Component {
         <button className="btn-icon" onClick={() => this.props.history.goBack()}>
           <img src={'/arrow.svg'} className="back-icon" alt=""/>
         </button>
-        <h1>Exercise details</h1>
-        { 
-          exercise ?
-          ( <div>
-              <h2>{exercise.title}</h2>
-              {
-                (!exercise.share) 
-                ? <Link to={`/profile/${exercise._id}/edit`}><button className="btn btn-edit">Edit</button></Link>
-                : null
-              }
+        {/* <h1>Exercise details</h1> */}
+          <div>
+              <div className="profile-header profile-header--details">
+                <div className="profile-header--details__info">
+                  <h1>{exercise.title}</h1>
+                  {
+                    (!exercise.share) 
+                    ? <Link to={`/profile/${exercise._id}/edit`}><button className="btn btn-edit">Edit</button></Link>
+                    : null
+                  }
+                </div>
+                <span>{exercise.duration} | {exercise.sport}</span>
+              </div>
+              
               <p>{exercise.description}</p>
-              <p><strong>Duration:</strong> {exercise.duration}</p>
+              
               {
                 exercise.img_url
                  ? <img className="edit-exercise__img" src={exercise.img_url} alt='exercise'/>
@@ -99,9 +103,6 @@ class ExerciseDetails extends Component {
                   : null
               }
             </div>
-          )
-          : null
-        }
       </main>
     )
   }
