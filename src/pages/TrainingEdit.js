@@ -129,8 +129,8 @@ class TrainingEdit extends Component {
               <label htmlFor="">Duration</label>
               <input type="number" value={training.duration} name="duration" onChange={this.handleInput}/>
               <label htmlFor="">Sport</label>
-              <select name="sport" id="" ref="sport" onChange={this.handleInput}>
-                <option value="all" default>All</option>
+              <select name="sport" ref="sport" value={this.state.training.sport} onChange={this.handleInput}>
+                <option value="all">All</option>
                 <option value="basketball">Basketball</option>
                 <option value="rugby">Rugby</option>
                 <option value="football">Football</option>

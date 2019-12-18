@@ -11,12 +11,10 @@ class ProfileEdit extends Component {
     password: '' 
   };
 
-  handleFormSubmit = event => {
-    event.preventDefault();
+  handleFormSubmit = () => {
     const { email, name, lastName, password } = this.state;
     authService.edit({ email, name, lastName, password })
       .then( (user) => {
-        console.log(user)
         this.props.history.push('/profile')
       })
       .catch( (err) => console.log(err));
@@ -40,7 +38,7 @@ class ProfileEdit extends Component {
     const { email, name, lastName, password } = this.state;
     return(
       <div className="content">
-        <button className="btn-icon" onClick={() => this.props.history.goBack()}>
+        <button className="btn-icon" onClick={() => this.props.history.push('/profile')}>
           <img src={'/arrow.svg'} className="back-icon" alt=""/>
         </button>
         <h1>Edit profile</h1>

@@ -67,7 +67,11 @@ class ExerciseNew extends Component {
           <label htmlFor="">Image</label>
           <input type="text" name="img_url" value={this.state.exercise.img_url} onChange={this.handleInput}/>
           <label htmlFor="">Share</label>
-          <input type="checkbox" name="share" checked={this.state.exercise.share} onChange={this.handleInput}/>
+           {/* Rounded switch  */}
+          <label class="switch">
+            <input type="checkbox" name="share" checked={this.state.exercise.share} onChange={this.handleInput}/>
+            <span class="slider round"></span>
+          </label>
           <button className="btn btn-success">Save</button>
         </form>                  
       </div>
