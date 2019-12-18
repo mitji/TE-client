@@ -95,7 +95,7 @@ class Discover extends Component {
             <option value="recovery">Recovery</option>
           </select>
 
-          <button className="btn">Filter</button>
+          <button className="btn btn-filter">Filter</button>
         </form>
         
         {

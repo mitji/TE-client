@@ -114,7 +114,7 @@ class TrainingNew extends Component {
                 <option value="rugby">Rugby</option>
                 <option value="football">Football</option>
               </select>
-              <button className="btn">Save</button>
+              <button className="btn btn-success">Save</button>
               <button className="btn" onClick={() => this.props.history.goBack()}>Back</button>
               <button className="btn" onClick={this.cancelNewTraining}>Cancel</button>
             </form>
@@ -132,7 +132,9 @@ class TrainingNew extends Component {
                             <p><strong>Sport: </strong>{exercise.sport}</p>
                           </div>
                           <div className="training-info__exercises__buttons">
-                            <button className="btn" onClick={() => this.removeExerciseFromTraining(exercise._id)}>Remove</button>
+                            <button className="btn-icon" onClick={() => this.removeExerciseFromTraining(exercise._id)}>
+                              <img src={"/bin.png"} alt="remove-exercise" className="btn-icon__action"/>
+                            </button>
                           </div>
                         </div>
                       )

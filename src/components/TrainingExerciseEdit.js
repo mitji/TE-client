@@ -45,11 +45,10 @@ class TrainingExerciseEdit extends Component {
   updateExercise = (e) => {
     e.preventDefault();
     const id = this.state.exercise._id;
-    const {title, description, duration, sport, type, video_url, img_url, share} = this.state;
-    
+    const {title, description, duration, sport, type, video_url, img_url, share} = this.state.exercise;
     exercisesService.modifyOne({title, description, duration, sport, type, video_url, img_url, share}, id)
       .then( (updatedExercise) => { 
-        this.setState({ exercise: updatedExercise});
+        this.props.editExercise(updatedExercise)
         this.props.click();
       })
       .catch( (err) => console.log(err));

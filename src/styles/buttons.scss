@@ -18,7 +18,7 @@
   outline: none;
   cursor: pointer;
   background: none;
-  &__unsave {
+  &__action {
     width: 20px;
     padding: 5px;
     background-color: #e1e1e17a;
@@ -36,7 +36,8 @@
 }
 
 .btn-success {
-  background-color: #bdffbd;
+  background-color: #598AFF;
+  color: $white;
 }
 
 .btn-delete {
@@ -53,4 +54,12 @@
 .btn-edit {
   background-color: $dark-blue;
   color: $white;
+}
+
+.btn-filter {
+  transition: 0.3s;
+  &:hover {
+    transition: 0.3s;
+    text-decoration: underline;
+  }
 }

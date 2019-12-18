@@ -44,6 +44,20 @@ class TrainingEdit extends Component {
       .catch( (err) => console.log(err));
   }
 
+  editExercise = (updatedEx) => {
+    const copyTrEx = this.state.trainingExercises;
+
+    const indexOfModified = copyTrEx.filter( (exercise, i) => {
+      if (exercise._id === updatedEx._id) {
+        return i
+      }
+    });
+
+    copyTrEx[indexOfModified] = updatedEx;
+    this.setState({trainingExercises: copyTrEx});
+
+  }
+
   addExercise = (exerciseId) => {
     const trainingId = this.state.training._id;
 
@@ -96,8 +110,7 @@ class TrainingEdit extends Component {
     
   }
 
-  render() {
-    
+  render() { 
     const training = this.state.training;
     const trainingExercises = this.state.trainingExercises;
     const userExercises = this.state.user.exercises;
@@ -114,6 +127,7 @@ class TrainingEdit extends Component {
               <TrainingExerciseEdit 
                 classToggle={this.state.showEdit} 
                 click={this.editToggle}
+                editExercise={this.editExercise}
                 exercise={this.state.exerciseToEdit}
               />
             )
@@ -147,13 +161,15 @@ class TrainingEdit extends Component {
                         <div className="training-info__exercises" key={i}>
                           <div className="training-info__exercises__details">
                             <h4>{exercise.title}</h4>
-                            <span className={`item-type ${exercise.type}`}>{exercise.type}</span>
-                            <p>{exercise.description}</p>
+                            <span>{exercise.duration} | <span className={`item-type ${exercise.type}`}>{exercise.type}</span></span>
                             <p><strong>Sport: </strong>{exercise.sport}</p>
+                            <p>{exercise.description}</p>    
                           </div>
                           <div className="training-info__exercises__buttons">
-                            <button className="btn" onClick={() => this.removeExerciseFromTraining(exercise._id)}>Remove</button>
-                            <button className="btn" onClick={() => this.editToggle(exercise)}>Edit</button>
+                            <button className="btn btn-edit" onClick={() => this.editToggle(exercise)}>Edit</button>
+                            <button className="btn-icon" onClick={() => this.removeExerciseFromTraining(exercise._id)}>
+                              <img src={"/bin.png"} alt="remove-exercise" className="btn-icon__action"/>
+                            </button>
                           </div>      
                         </div>
                       )

@@ -91,7 +91,7 @@ class ExerciseEdit extends Component {
           <input type="checkbox" name="share" checked={this.state.exercise.share} onChange={this.handleInput}/>
           <span class="slider round"></span>
           </label>
-          <button className="btn">Save</button>
+          <button className="btn btn-success">Save</button>
         </form>
 
         <button className="btn btn-delete" onClick={this.deleteExercise}>Delete</button>
