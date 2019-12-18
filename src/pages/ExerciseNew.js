@@ -17,6 +17,21 @@ class ExerciseNew extends Component {
     this.setState({ exercise: exerciseCopy });
   };
 
+  fileOnchange = (event) => {    
+    const file = event.target.files[0];
+    const uploadData = new FormData()
+    uploadData.append('photo', file)
+
+    exercisesService.uploadImage(uploadData)
+      .then((img_url) => {
+        const exerciseCopy = this.state.exercise;
+        exerciseCopy.img_url = img_url;
+        this.setState({ exercise: exerciseCopy })
+        console.log(img_url)
+      })
+      .catch((error) => console.log(error))
+  }
+
   saveExercise = (e) => {
     e.preventDefault();
     const {title, description, duration, sport, type, video_url, img_url, share} = this.state.exercise; 
@@ -64,8 +79,9 @@ class ExerciseNew extends Component {
           </select>
           <label htmlFor="">Video</label>
           <input type="text" name="video_url" value={this.state.exercise.video_url} onChange={this.handleInput}/>
-          <label htmlFor="">Image</label>
-          <input type="text" name="img_url" value={this.state.exercise.img_url} onChange={this.handleInput}/>
+          <input type="file" className="custom-file-input" id="customFile" name='img_url' onChange={(event)=>this.fileOnchange(event)} required />
+          {/* <label htmlFor="">Image</label>
+          <input type="text" name="img_url" onChange={this.handleInput}/> */}
           <label htmlFor="">Share</label>
            {/* Rounded switch  */}
           <label class="switch">

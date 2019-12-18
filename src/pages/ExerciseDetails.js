@@ -72,6 +72,7 @@ class ExerciseDetails extends Component {
               }
               <p>{exercise.description}</p>
               <p><strong>Duration:</strong> {exercise.duration}</p>
+              <img className="edit-exercise__img" src={`${exercise.img_url}`} alt='exercise'/>
               {
                 (exercise.author !== userId) ?
                   (
