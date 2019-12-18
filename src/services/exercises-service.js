@@ -21,6 +21,12 @@ class Exercises {
               .then(({ data }) => data);
   }
 
+  uploadImage(file) {
+    return this.exercises
+              .post('/new/image', file)
+              .then(({data}) => data);
+  }
+
   modifyOne(modifiedExercise, id) {
     const {title, description, duration, sport, type, video_url, img_url, share} = modifiedExercise;
     return this.exercises
