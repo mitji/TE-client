@@ -79,7 +79,7 @@ class ExerciseDetails extends Component {
               }
               {
                 exercise.video_url
-                 ? <iframe width="560" height="315" src="https://www.youtube.com/embed/nAS0HyhLjhw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allow="fullscreen"></iframe>
+                 ? <iframe width="400" height="250" src={exercise.video_url} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allow="fullscreen"></iframe>
 
                  : <h4>No video provided</h4>
               }
