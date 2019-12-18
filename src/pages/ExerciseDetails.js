@@ -72,7 +72,18 @@ class ExerciseDetails extends Component {
               }
               <p>{exercise.description}</p>
               <p><strong>Duration:</strong> {exercise.duration}</p>
-              <img className="edit-exercise__img" src={`${exercise.img_url}`} alt='exercise'/>
+              {
+                exercise.img_url
+                 ? <img className="edit-exercise__img" src={exercise.img_url} alt='exercise'/>
+                 : <h4>No image provided</h4>
+              }
+              {
+                exercise.video_url
+                 ? <iframe width="560" height="315" src="https://www.youtube.com/embed/nAS0HyhLjhw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allow="fullscreen"></iframe>
+
+                 : <h4>No video provided</h4>
+              }
+              
               {
                 (exercise.author !== userId) ?
                   (
