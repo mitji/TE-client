@@ -171,11 +171,7 @@ class TrainingExerciseEdit extends Component {
                 <label htmlFor="">Video</label>
                 <input className="input" type="text" name="video_url" value={this.state.exercise.video_url} onChange={this.handleChange}  ref={this.references['video_url']}/>
                 <label htmlFor="">Image</label>
-                {
-                  this.state.exercise.img_url
-                  ? <span>You can't add a new picture!</span>
-                  : <input type="file" className="custom-file-input" id="customFile" name='img_url' onChange={(event)=>this.fileOnchange(event)} />
-                }
+                <input type="file" className="custom-file-input" id="customFile" name='img_url' onChange={(event)=>this.fileOnchange(event)} />
                 {
                 this.state.isLoading 
                   ? (<button disabled className="btn btn-success loading-gif-btn">

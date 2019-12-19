@@ -25,7 +25,8 @@ class ExerciseEdit extends Component {
   state = {
     exercise: {},
     sport: {},
-    type: {}
+    type: {},
+    isLoading: false
   }
  
   handleInput = (e) => {
@@ -46,7 +47,8 @@ class ExerciseEdit extends Component {
     this.setState({type: selected})
   }
 
-  fileOnchange = (event) => {    
+  fileOnchange = (event) => {
+    this.setState({isLoading: true});
     const file = event.target.files[0];
     const uploadData = new FormData()
     uploadData.append('photo', file)
@@ -55,7 +57,7 @@ class ExerciseEdit extends Component {
       .then((img_url) => {
         const exerciseCopy = this.state.exercise;
         exerciseCopy.img_url = img_url;
-        this.setState({ exercise: exerciseCopy })
+        this.setState({ exercise: exerciseCopy, isLoading: false})
         console.log(img_url)
       })
       .catch((error) => console.log(error))
@@ -147,11 +149,7 @@ class ExerciseEdit extends Component {
           <label htmlFor="">Video</label>
           <input className="input" type="text" name="video_url" value={this.state.exercise.video_url} onChange={this.handleInput}/>
           <label htmlFor="">Image</label>
-          {
-            this.state.exercise.img_url
-             ? <span>You can't add a new picture!</span>
-             : <input type="file" className="custom-file-input" id="customFile" name='img_url' onChange={(event)=>this.fileOnchange(event)} />
-          }
+          <input type="file" className="custom-file-input" id="customFile" name='img_url' onChange={(event)=>this.fileOnchange(event)} />
           <div className="inline-display">
             <label htmlFor="">Duration</label>
             <input className="input" type="number" value={this.state.exercise.duration} name="duration" onChange={this.handleInput} required/>
@@ -162,8 +160,13 @@ class ExerciseEdit extends Component {
               <span className="slider round"></span>
             </label>
           </div>
-          
-          <button className="btn btn-success">Save</button>
+          {
+            this.state.isLoading 
+              ? (<button disabled className="btn btn-success loading-gif-btn">
+                  <img className="loading-gif" src={'/loading.gif'} alt="loading"/>
+                </button>)
+              : <button className="btn btn-success">Save</button>
+            }
         </form>
       </main>
     )
