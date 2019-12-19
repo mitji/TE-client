@@ -42,9 +42,10 @@ class ProfileEdit extends Component {
           <img src={'/arrow.svg'} className="back-icon" alt=""/>
         </button>
         <h1>Edit profile</h1>
-        <form onSubmit={this.handleFormSubmit} className="input-form ">
+        <form onSubmit={this.handleFormSubmit} className="input-form">
           <label>Email:</label>
           <input
+            className="input"
             type="email"
             name="email"
             value={email}
@@ -52,6 +53,7 @@ class ProfileEdit extends Component {
           />
           <label>Name:</label>
           <input
+            className="input"
             type="text"
             name="name"
             value={name}
@@ -60,6 +62,7 @@ class ProfileEdit extends Component {
 
           <label>Last name:</label>
           <input
+            className="input"
             type="text"
             name="lastName"
             value={lastName}
@@ -68,13 +71,14 @@ class ProfileEdit extends Component {
 
           <label>Password:</label>
           <input
+            className="input"
             type="password"
             name="password"
             value={password}
             onChange={this.handleChange}
           />
 
-          <input className="submit-btn" type="submit" value="Edit" />
+          <input className="btn btn-success btn-success--edit" type="submit" value="Edit" />
         </form>
       </div>
     )

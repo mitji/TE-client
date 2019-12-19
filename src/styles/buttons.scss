@@ -38,6 +38,11 @@
 .btn-success {
   background-color: #598AFF;
   color: $white;
+  &--edit {
+    width: 50px;
+    margin-top: 10px;
+    align-self: center;
+  }
 }
 
 .btn-delete {
