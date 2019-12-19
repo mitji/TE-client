@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import shortid from 'shortid';
 import { Link } from 'react-router-dom';
 
 import trainingService from './../services/trainings-service';
@@ -46,19 +45,40 @@ class TrainingDetails extends Component {
                   <h1>{training.title}</h1>
                   <Link to={`/my-trainings/${training._id}/edit`}><button className="btn btn-edit">Edit</button></Link>
                 </div>
-              <span>{training.duration} min | {training.sport}</span>
+              
+                <div className="inline-display inline-display--details">
+                  <p>
+                    <strong>Sport: </strong>{training.sport}
+                    <span>|</span>
+                    <span>{training.duration} min</span>      
+                  </p>
+                </div>
               </div>
-              <p className="training-info__description">{training.description}</p>
-              {training.exercises.map( exercise => {
-                return (
-                  <div className="training-info__exercises" key={shortid.generate()}>
-                    <h4>{exercise.title}</h4>
-                    <span className={`item-type ${exercise.type}`}>{exercise.type}</span>
-                    <p>{exercise.description}</p>
-                    <p><strong>Sport: </strong>{exercise.sport}</p>
-                  </div>
-                )
-              })}
+              <h4>Description</h4>
+              <p>{training.description}</p>
+
+              <h4>Exercises</h4>
+              <div className="training-ex-list">
+                {training.exercises.map( (exercise, i) => {
+                  return (
+                    
+                      <div className="list-container__item list-container__item--training" key={i}>
+                        <Link to={`/profile/${exercise._id}`}>
+                          <div className="inline-display">
+                            <p><strong>{i+1}. {exercise.title}</strong></p>
+                            <span className={`item-type ${exercise.type}`}>{exercise.type}</span>
+                          </div>
+                          <p><strong>Sport: </strong>{exercise.sport}</p>
+                          <p><strong>Duration: </strong>{exercise.duration}</p>
+                          <p>{exercise.description}</p>
+                          
+                        </Link>
+                      </div>
+                  )
+                })}
+                <i aria-hidden="true"></i>
+                <i aria-hidden="true"></i>
+              </div>
             </div>          
           )
           : null

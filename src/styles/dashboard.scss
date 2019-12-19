@@ -14,6 +14,9 @@
     font-size: 18px;
     color: #4a4a4a;
   }
+  p, span {
+    font-size: 16px;
+  }
 
   .back-icon {
     width: 25px;
@@ -25,6 +28,66 @@
     p,span {
       color: black;
     }
+  }
+  .inline-display {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+    label {
+      margin: 0;
+      &[name="share"] {
+        margin-left: auto;
+        margin-right: 10px;
+      }
+    }
+    .input {
+      margin: 0;
+      margin-left: 10px;
+      &[name="duration"] {
+        text-align: right;
+      }
+    }
+    &> span {
+      margin-left: 10px;
+    }
+    .btn-delete {
+      margin-left: 30px;
+    }
+    &__column {
+      display: flex;
+      flex-direction: column;
+      &:first-of-type {
+        width: 35%;
+      }
+      &:last-of-type {
+        width: 60%;
+        margin-left: auto;
+      }   
+    }
+    &--details {
+      align-self: flex-start;
+      margin-top: 5px;
+      span {
+        &:first-of-type {
+          font-weight: bold;
+          color: #4a4a4a;
+          margin: 0 10px;
+        }
+        &:last-of-type {
+          margin: 0 0 0 5px;
+        }
+      }
+    }
+    &__media {
+      display: flex;
+      flex-direction: column;
+      align-self: flex-start;
+      width: 50%;
+    }
+  }
+
+  h4 {
+    margin: 20px 0 10px;
   }
 }
 

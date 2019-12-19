@@ -111,8 +111,10 @@ class ExerciseEdit extends Component {
         <button className="btn-icon" onClick={() => this.props.history.goBack()}>
           <img src={'/arrow.svg'} className="back-icon" alt=""/>
         </button>
-
-        <h1>Exercise edit</h1>
+        <div className="inline-display">
+          <h1>Exercise edit</h1>
+          <button className="btn btn-delete" onClick={this.deleteExercise}>Delete</button>
+        </div>
 
         <form onSubmit={this.updateExercise} className="input-form">
           <label htmlFor="">Title</label>
@@ -120,23 +122,28 @@ class ExerciseEdit extends Component {
           <label htmlFor="">Description</label>
           <textarea value={this.state.exercise.description} name="description" onChange={this.handleInput} required/>
           
-          <label htmlFor="">Sport</label>
-          <Select
-            className="select"
-            value={this.state.sport}
-            onChange={this.handleSport}
-            options={sports}
-            placeholder={this.state.exercise.sport}
-            required
-          />
-          <label htmlFor="">Type</label>
-          <Select
-            className="select"
-            value={this.state.type}
-            onChange={this.handleType}
-            options={type}
-            required
-          />
+          <div className="inline-display">
+            <div className="inline-display__column">
+              <label htmlFor="">Sport</label>
+                <Select
+                  className="select"
+                  value={this.state.sport}
+                  onChange={this.handleSport}
+                  options={sports}
+                  required
+                />
+            </div>
+            <div className="inline-display__column">          
+                <label htmlFor="">Type</label>
+                <Select
+                  className="select"
+                  value={this.state.type}
+                  onChange={this.handleType}
+                  options={type}
+                  required
+                />
+            </div>
+          </div>
           <label htmlFor="">Video</label>
           <input className="input" type="text" name="video_url" value={this.state.exercise.video_url} onChange={this.handleInput}/>
           <label htmlFor="">Image</label>
@@ -158,9 +165,6 @@ class ExerciseEdit extends Component {
           
           <button className="btn btn-success">Save</button>
         </form>
-
-        <button className="btn btn-delete" onClick={this.deleteExercise}>Delete</button>
-
       </main>
     )
   }

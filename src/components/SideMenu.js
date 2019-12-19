@@ -15,7 +15,6 @@ class SideMenu extends Component {
               <NavLink to="/profile" activeClassName="selected"><h4>Profile</h4></NavLink>
               <NavLink to="/my-trainings" activeClassName="selected"><h4>My trainings</h4></NavLink>
               <NavLink to="/discover" activeClassName="selected"><h4>Discover</h4></NavLink>
-              <NavLink to="#" ><h4>Articles</h4></NavLink>
               <button onClick={this.props.logout}>Logout</button>
             </div>
           </section>

@@ -11,30 +11,11 @@
       margin-top: 0px;
     }
   }
-  .inline-display {
-    display: flex;
-    align-items: center;
-    margin-top: 15px;
-    label {
-      margin: 0;
-      &[name="share"] {
-        margin-left: auto;
-        margin-right: 10px;
-      }
-    }
-    .input {
-      margin: 0;
-      margin-left: 10px;
-      &[name="duration"] {
-        text-align: right;
-      }
-    }
-    &> span {
-      margin-left: 10px;
-    }
-  }
   .select  {
     margin-top: 10px;
+    .css-1okebmr-indicatorSeparator {
+      display: none;
+    }
   }
   .input, textarea {
     margin-top: 5px;
@@ -62,7 +43,7 @@
     }
     &:focus {
       transition: 0.3s;
-      border: 1px solid #e97c00;
+      border: 2px solid #598AFF;
     }
   }
   textarea {

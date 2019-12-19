@@ -65,28 +65,45 @@ class ExerciseDetails extends Component {
               <div className="profile-header profile-header--details">
                 <div className="profile-header--details__info">
                   <h1>{exercise.title}</h1>
+                  <span className={`item-type ${exercise.type}`}>{exercise.type}</span>
                   {
                     (!exercise.share) 
-                    ? <Link to={`/profile/${exercise._id}/edit`}><button className="btn btn-edit">Edit</button></Link>
-                    : null
+                      ? <Link to={`/profile/${exercise._id}/edit`}><button className="btn btn-edit">Edit</button></Link>
+                      : null
                   }
                 </div>
-                <span>{exercise.duration} | {exercise.sport}</span>
+                
+                <div className="inline-display inline-display--details">
+                  <p>
+                    <strong>Sport: </strong>{exercise.sport}
+                    <span>|</span>
+                    <span>{exercise.duration} min</span>      
+                  </p>
+                </div>
               </div>
               
+              <h4>Description</h4>
               <p>{exercise.description}</p>
-              
-              {
-                exercise.img_url
-                 ? <img className="edit-exercise__img" src={exercise.img_url} alt='exercise'/>
-                 : <h4>No image provided</h4>
-              }
-              {
-                exercise.video_url
-                 ? <iframe width="400" height="250" src={exercise.video_url} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allow="fullscreen"></iframe>
+              <div className="inline-display">
+                <div className="inline-display__media">
+                  <h4>Image</h4>
+                  {
+                    exercise.img_url
+                    ? <img className="edit-exercise__img" src={exercise.img_url} alt='exercise'/>
+                    : <p><strong>No image provided</strong></p>
+                  }
+                </div>
+                <div className="inline-display__media">
+                  <h4>Video</h4>
+                  {
+                    exercise.video_url
+                    ? <iframe width="400" height="250" src={exercise.video_url} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allow="fullscreen"></iframe>
 
-                 : <h4>No video provided</h4>
-              }
+                    : <p><strong>No video provided</strong></p>
+                  }
+                </div>
+              </div>
+              
               
               {
                 (exercise.author !== userId) ?
@@ -97,7 +114,6 @@ class ExerciseDetails extends Component {
                         ? <button className="btn btn-success" onClick={this.saveExercise}>Save</button>
                         : <button className="btn btn-delete" onClick={this.unsaveExercise}>Unsave</button>
                     }
-                    <h4>Comments</h4>
                     </div>
                   )
                   : null

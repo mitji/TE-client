@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import trainingsService from './../services/trainings-service';
 import profileService from './../services/profile-service';
@@ -173,17 +174,24 @@ class TrainingEdit extends Component {
               <button className="btn btn-success">Save</button>
             </form>
             <div className="exercises-edit">
+              <h4>Exercises</h4>
               {
-                trainingExercises ?
+                trainingExercises.length ?
                   (
                     trainingExercises.map( (exercise, i) => {
                       return (
                         <div className="training-info__exercises" key={i}>
-                          <div className="training-info__exercises__details">
-                            <h4>{exercise.title}</h4>
-                            <span>{exercise.duration} | <span className={`item-type ${exercise.type}`}>{exercise.type}</span></span>
-                            <p><strong>Sport: </strong>{exercise.sport}</p>
-                            <p>{exercise.description}</p>    
+                          <div className="list-container__item list-container__item--training" key={i}>
+                            <Link to={`/profile/${exercise._id}`}>
+                              <div className="inline-display">
+                                <p><strong>{i+1}. {exercise.title}</strong></p>
+                                <span className={`item-type ${exercise.type}`}>{exercise.type}</span>
+                              </div>
+                              <p><strong>Sport: </strong>{exercise.sport}</p>
+                              <p><strong>Duration: </strong>{exercise.duration}</p>
+                              <p>{exercise.description}</p>
+                              
+                            </Link>
                           </div>
                           <div className="training-info__exercises__buttons">
                             <button className="btn btn-edit" onClick={() => this.editToggle(exercise)}>Edit</button>
@@ -197,7 +205,7 @@ class TrainingEdit extends Component {
                   
                   )
                     
-                : null
+                : <p><strong>Add exercises!</strong></p>
               }
             </div>
           </section>

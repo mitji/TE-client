@@ -78,7 +78,7 @@ class ProfileEdit extends Component {
             onChange={this.handleChange}
           />
 
-          <input className="btn btn-success btn-success--edit" type="submit" value="Edit" />
+          <input className="btn btn-success btn-success--edit" type="submit" value="Save" />
         </form>
       </div>
     )

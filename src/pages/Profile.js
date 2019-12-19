@@ -15,7 +15,6 @@ import ExerciseList from './../components/ExerciseList';
 
 class Dashboard extends Component {
 
-  
   state = {
     user: {},
     savedExercisesLength: 0,
