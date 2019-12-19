@@ -57,9 +57,16 @@
 }
 
 .btn-filter {
-  transition: 0.3s;
+  background-color: #f7f8ff;
+  color: #001034;
+  border: 2px solid #001034;
+  align-self: center;
+}
+
+.btn-cancel {
+  background: none;
+  margin-top: 5px !important;
   &:hover {
-    transition: 0.3s;
-    text-decoration: underline;
+    color: #5a5a5a;
   }
 }

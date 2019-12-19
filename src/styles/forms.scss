@@ -1,0 +1,76 @@
+@import 'colors';
+
+.input-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  margin-top: 20px;
+  label {
+    margin-top: 15px;
+    &:first-of-type {
+      margin-top: 0px;
+    }
+  }
+  .inline-display {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+    label {
+      margin: 0;
+      &[name="share"] {
+        margin-left: auto;
+        margin-right: 10px;
+      }
+    }
+    .input {
+      margin: 0;
+      margin-left: 10px;
+      &[name="duration"] {
+        text-align: right;
+      }
+    }
+    &> span {
+      margin-left: 10px;
+    }
+  }
+  .select  {
+    margin-top: 10px;
+  }
+  .input, textarea {
+    margin-top: 5px;
+    height: 40px;
+    padding: 5px 15px;
+    box-sizing: border-box;
+    border-radius: 3px;
+    border: 1px solid #e1e1e1;
+    font-size: 14px;
+    outline: none;
+    transition: 0.3s;
+    &[name="video_url"] {
+      height: 30px;
+    }
+    &[name="img_url"] {
+      width: 240px;
+    }
+    &[name="duration"] {
+      width: 62px;
+      height: 32px;
+      padding: 5px 10px;
+      background: none;
+      font-weight: bold;
+    }
+    &:focus {
+      transition: 0.3s;
+      border: 1px solid #e97c00;
+    }
+  }
+  textarea {
+    height: 100px;
+  }
+  button {
+    margin-top: 15px;
+    width: 100px;
+    display: flex;
+    align-self: center;
+  }
+}

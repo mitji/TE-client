@@ -8,15 +8,17 @@ import profileService from './../services/profile-service';
 import './../styles/navigation.scss';
 import './../styles/dashboard.scss';
 import './../styles/profile.scss';
+import './../styles/forms.scss';
 
 import TrainingCard from './../components/TrainingCard';
 import ExerciseList from './../components/ExerciseList';
 
 class Dashboard extends Component {
 
+  
   state = {
     user: {},
-    savedExercisesLength: 0
+    savedExercisesLength: 0,
   }
 
   updateLength = () => {
@@ -42,7 +44,6 @@ class Dashboard extends Component {
 
     return (
       <main className="content">
-      
         <div className="profile-header">
           <h1>Profile</h1>
           <Link to={'/profile/edit'}>

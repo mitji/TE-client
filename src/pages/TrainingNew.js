@@ -5,13 +5,23 @@ import profileService from './../services/profile-service';
 
 import ExerciseList from './../components/ExerciseList';
 
+import Select from 'react-select';
+
+const sports = [
+  { value: 'all', label: 'All' },
+  { value: 'rugby', label: 'Rugby' },
+  { value: 'basketball', label: 'Basketball' },
+  { value: 'football', label: 'Football' },
+];
+
 class TrainingNew extends Component {
 
   state = {
     training: {},
     trainingId: '',
     trainingExercises: [],
-    user: {}
+    user: {},
+    sport: {},
   }
  
   handleInput = e => {
@@ -24,8 +34,8 @@ class TrainingNew extends Component {
   saveTraining = (e) => {
     e.preventDefault();
     const id = this.state.training._id;
-    const { title, description, duration, sport } = this.state.training;
-
+    const { title, description, duration } = this.state.training;
+    const sport = this.state.sport.value
     trainingsService.modifyOne({ title, description, duration, sport }, id)
       .then( (modifiedTraining) => {
         this.setState({ training: modifiedTraining });
@@ -50,6 +60,10 @@ class TrainingNew extends Component {
         this.setState({trainingExercises});
       })
       .catch( (err) => console.log(err));
+  }
+
+  handleSport = (selected) => {
+    this.setState({sport: selected})
   }
 
   removeExerciseFromTraining = (exerciseId) => {
@@ -97,26 +111,28 @@ class TrainingNew extends Component {
         <button className="btn-icon" onClick={() => this.props.history.goBack()}>
           <img src={'/arrow.svg'} className="back-icon" alt=""/>
         </button>
+        <h1>New training</h1>
         <div className="edit-training">
           <section className="edit-training__info">
-            <form onSubmit={this.saveTraining}>
+            <form onSubmit={this.saveTraining} className="input-form">
               <label htmlFor="">Title</label>
-              <input type="text" value={training.title} name="title" onChange={this.handleInput} />
+              <input className="input" type="text" value={training.title} name="title" onChange={this.handleInput}/>
               <label htmlFor="">Description</label>
               <textarea value={training.description} name="description" onChange={this.handleInput}/>
-              <label htmlFor="">Duration</label>
-              <input type="number" value={training.duration} name="duration" onChange={this.handleInput}/>
+              <div className="inline-display">
+                <label htmlFor="">Duration</label>
+                <input className="input" type="number" value={training.duration} name="duration" onChange={this.handleInput} required/>
+                <span>min</span>
+              </div>
               <label htmlFor="">Sport</label>
-              <select name="sport" ref="sport" value={this.state.training.sport} onChange={this.handleInput}>
-                <option value="">-</option>
-                <option value="all">All</option>
-                <option value="basketball">Basketball</option>
-                <option value="rugby">Rugby</option>
-                <option value="football">Football</option>
-              </select>
+              <Select
+                className="select"
+                value={this.state.sport}
+                onChange={this.handleSport}
+                options={sports}
+              />
               <button className="btn btn-success">Save</button>
-              <button className="btn" onClick={() => this.props.history.goBack()}>Back</button>
-              <button className="btn" onClick={this.cancelNewTraining}>Cancel</button>
+              <button className="btn btn-cancel" onClick={this.cancelNewTraining}>Cancel</button>
             </form>
             <div className="exercises-edit">
               {

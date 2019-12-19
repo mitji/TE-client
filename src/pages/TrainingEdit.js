@@ -6,6 +6,15 @@ import profileService from './../services/profile-service';
 import TrainingExerciseEdit from './../components/TrainingExerciseEdit';
 import ExerciseList from './../components/ExerciseList';
 
+import Select from 'react-select';
+
+const sports = [
+  { value: 'all', label: 'All' },
+  { value: 'rugby', label: 'Rugby' },
+  { value: 'basketball', label: 'Basketball' },
+  { value: 'football', label: 'Football' },
+];
+
 class TrainingEdit extends Component {
 
   state = {
@@ -14,14 +23,7 @@ class TrainingEdit extends Component {
     user: {},
     showEdit: false,
     exerciseToEdit: null,
-    title: '', 
-    description: '', 
-    duration: '', 
-    sport: '', 
-    type: '', 
-    video_url: '',
-    img_url: '', 
-    share: ''
+    sport: {}
   }
 
   handleInput = e => {
@@ -31,10 +33,16 @@ class TrainingEdit extends Component {
     this.setState({ training: trainingCopy });
   };
 
+  handleSport = (selected) => {
+    this.setState({sport: selected})
+  }
+
   updateTraining = (e) => {
     e.preventDefault();
     const id = this.state.training._id;
-    const { title, description, duration, sport } = this.state.training;
+    const { title, description, duration } = this.state.training;
+
+    const sport = this.state.sport.value;
 
     trainingsService.modifyOne({ title, description, duration, sport }, id)
       .then( (modifiedTraining) => {
@@ -103,7 +111,11 @@ class TrainingEdit extends Component {
       .then( (training) => {
         profileService.getUser()
           .then( (userInfo) => {
-            this.setState({training, trainingExercises: training.exercises, user: userInfo});
+            const sport = {
+              value: training.sport,
+              label: `${training.sport.charAt(0).toUpperCase()}${training.sport.slice(1)}`
+            };
+            this.setState({training, trainingExercises: training.exercises, user: userInfo, sport});
           })
           .catch( (err) => console.log(err));
       })
@@ -121,6 +133,10 @@ class TrainingEdit extends Component {
         <button className="btn-icon" onClick={() => this.props.history.goBack()}>
           <img src={'/arrow.svg'} className="back-icon" alt=""/>
         </button>
+        <div className="training-header">
+          <h1>Edit training</h1>
+          <button className="btn btn-delete" onClick={this.deleteTraining}>Delete training</button>
+        </div>
         <div className="edit-training">
           {this.state.showEdit ?
             (
@@ -135,22 +151,26 @@ class TrainingEdit extends Component {
           }
         
           <section className="edit-training__info">
-            <form onSubmit={this.updateTraining}>
+            <form onSubmit={this.updateTraining} class="input-form">
               <label htmlFor="">Title</label>
-              <input type="text" value={training.title} name="title" onChange={this.handleInput} />
+              <input class="input" type="text" value={training.title} name="title" onChange={this.handleInput} />
               <label htmlFor="">Description</label>
               <textarea value={training.description} name="description" onChange={this.handleInput}/>
-              <label htmlFor="">Duration</label>
-              <input type="number" value={training.duration} name="duration" onChange={this.handleInput}/>
+              <div className="inline-display">
+                <label htmlFor="">Duration</label>
+                <input className="input" type="number" value={training.duration} name="duration" onChange={this.handleInput} required/>
+                <span>min</span>
+              </div>
               <label htmlFor="">Sport</label>
-              <select name="sport" ref="sport" value={this.state.training.sport} onChange={this.handleInput}>
-                <option value="all">All</option>
-                <option value="basketball">Basketball</option>
-                <option value="rugby">Rugby</option>
-                <option value="football">Football</option>
-              </select>
+                  <Select
+                    className="select"
+                    value={this.state.sport}
+                    onChange={this.handleSport}
+                    options={sports}
+                    placeholder={training.sport}
+                    required
+                  />
               <button className="btn btn-success">Save</button>
-              <button className="btn btn-delete" onClick={this.deleteTraining}>Delete training</button>
             </form>
             <div className="exercises-edit">
               {

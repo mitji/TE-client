@@ -4,6 +4,25 @@ import { Link } from 'react-router-dom';
 
 import exercisesService from './../services/exercises-service'
 
+import Select from 'react-select';
+
+const sports = [
+  { value: 'all', label: 'All' },
+  { value: 'rugby', label: 'Rugby' },
+  { value: 'basketball', label: 'Basketball' },
+  { value: 'football', label: 'Football' },
+];
+
+const type = [
+  { value: 'all', label: 'All' },
+  { value: 'skills', label: 'Skills' },
+  { value: 'attack', label: 'Attack' },
+  { value: 'defense', label: 'Defense' },
+  { value: 'sc', label: 'Strength & Conditioning' },
+  { value: 'stretch', label: 'Stretch' },
+  { value: 'recovery', label: 'Recovery' },
+];
+
 class TrainingExerciseEdit extends Component {
 
   constructor(props) {
@@ -12,6 +31,8 @@ class TrainingExerciseEdit extends Component {
     this.state = {
       exercise: null,
       focusInput: undefined,
+      sport: {},
+      type: {}
     }
 
     this.references = {
@@ -69,15 +90,45 @@ class TrainingExerciseEdit extends Component {
     }
   };
 
+  handleSport = (selected) => {
+    this.setState({sport: selected})
+  }
+
+  handleType = (selected) => {
+    this.setState({type: selected})
+  }
+
+  fileOnchange = (event) => {    
+    const file = event.target.files[0];
+    const uploadData = new FormData()
+    uploadData.append('photo', file)
+
+    exercisesService.uploadImage(uploadData)
+      .then((img_url) => {
+        const exerciseCopy = this.state.exercise;
+        exerciseCopy.img_url = img_url;
+        this.setState({ exercise: exerciseCopy })
+        console.log(img_url)
+      })
+      .catch((error) => console.log(error))
+  }
+
   componentDidUpdate() {
     this.focusTextInput();
   }
 
   componentDidMount() {
     const exercise = this.props.exercise;
-    this.setState({exercise});   
+    const sport = {
+      value: exercise.sport,
+      label: `${exercise.sport.charAt(0).toUpperCase()}${exercise.sport.slice(1)}`
+    };
+    const type = {
+      value: exercise.type,
+      label: `${exercise.type.charAt(0).toUpperCase()}${exercise.type.slice(1)}`
+    };
+    this.setState({exercise, sport, type});
   }
-
 
   render() {
     return(
@@ -91,21 +142,38 @@ class TrainingExerciseEdit extends Component {
           {(this.state.exercise === null) ?
             <h1>loading</h1>
             : (
-              <form onSubmit={this.updateExercise} key='form1'>
+              <form onSubmit={this.updateExercise} className="input-form">
                 <label htmlFor="">Title</label>
-                <input type="text" value={this.state.exercise.title} name="title" onChange={this.handleChange} ref={this.references['title']} />
+                <input className="input" type="text" value={this.state.exercise.title} name="title" onChange={this.handleChange} ref={this.references['title']} />
                 <label htmlFor="">Description</label>
                 <textarea value={this.state.exercise.description} name="description" onChange={this.handleChange}  ref={this.references['description']}/>
                 <label htmlFor="">Duration</label>
-                <input type="number" value={this.state.exercise.duration} name="duration" onChange={this.handleChange}/>
+                <input className="input" type="number" value={this.state.exercise.duration} name="duration" onChange={this.handleChange}/>
                 <label htmlFor="">Sport</label>
-                <input type="text"  value={this.state.exercise.sport} name="sport" onChange={this.handleChange}  ref={this.references['sport']}/>
+                  <Select
+                    className="select"
+                    value={this.state.sport}
+                    onChange={this.handleSport}
+                    options={sports}
+                    placeholder={this.state.exercise.sport}
+                    required
+                  />
                 <label htmlFor="">Type</label>
-                <input type="text"  value={this.state.exercise.type} name="type" onChange={this.handleChange}  ref={this.references['type']}/>
+                  <Select
+                    className="select"
+                    value={this.state.type}
+                    onChange={this.handleType}
+                    options={type}
+                    required
+                  />
                 <label htmlFor="">Video</label>
-                <input type="text" name="video_url" value={this.state.exercise.video_url} onChange={this.handleChange}  ref={this.references['video_url']}/>
+                <input className="input" type="text" name="video_url" value={this.state.exercise.video_url} onChange={this.handleChange}  ref={this.references['video_url']}/>
                 <label htmlFor="">Image</label>
-                <input type="text" name="img_url" value={this.state.exercise.img_url} onChange={this.handleChange}  ref={this.references['img_url']}/>          
+                {
+                  this.state.exercise.img_url
+                  ? <span>You can't add a new picture!</span>
+                  : <input type="file" className="custom-file-input" id="customFile" name='img_url' onChange={(event)=>this.fileOnchange(event)} />
+                }
                 <button className="btn btn-success">Save</button>
               </form>
             )

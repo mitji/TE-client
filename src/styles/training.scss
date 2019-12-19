@@ -6,6 +6,10 @@
     margin-left: 30px;
     align-self: center;
   }
+  .btn-delete {
+    margin-left: 30px;
+    align-self: center;
+  }
 }
 .trainings-list {
   // display: flex;
@@ -127,7 +131,7 @@
     }
     &__form-container {
       position: absolute;
-      top: 20%;
+      top: 4%;
       left: 25%;
       padding: 30px;
       margin-top: 20px;

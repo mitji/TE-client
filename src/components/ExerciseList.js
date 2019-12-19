@@ -36,15 +36,13 @@ class ExerciseList extends Component {
             <div>
               <div className="list-container__item" key={shortid.generate()}>
                 <Link to={`/profile/${exercise._id}`}>
-                  <p>{exercise.title}</p>
-                  <span className={`item-type ${exercise.type}`}>{exercise.type}</span>
-                  <p>{exercise.description}</p>
+                  <p><strong>{exercise.title}</strong></p>
+                  <div><span>{exercise.duration} min</span>   |   <span className={`item-type ${exercise.type}`}>{exercise.type}</span></div>
                   {
                     (exercise.author._id !== this.props.userId) ?
                     (
                       <div>
                         <p><strong>Author: </strong>{exercise.author.name} {exercise.author.lastName}</p>
-                        <p><strong>Duration:</strong>{exercise.duration}</p>
                       </div>
                     )
                     : null

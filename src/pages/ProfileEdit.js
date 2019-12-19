@@ -42,7 +42,7 @@ class ProfileEdit extends Component {
           <img src={'/arrow.svg'} className="back-icon" alt=""/>
         </button>
         <h1>Edit profile</h1>
-        <form onSubmit={this.handleFormSubmit}>
+        <form onSubmit={this.handleFormSubmit} className="input-form ">
           <label>Email:</label>
           <input
             type="email"

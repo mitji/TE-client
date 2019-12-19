@@ -63,6 +63,9 @@
     a {
       display: flex;
       flex-direction: column;
+      &>div {
+        margin: 10px 0 0;
+      }
     }
     &:last-of-type {
       border-bottom: none;
@@ -97,13 +100,34 @@
   box-sizing: border-box;
   text-align: center;
 }
-.defense {
-  background-color: bisque;
-  width: 70px;
+.all {
+  background-color: gold;
+  width: 40px;
 }
 .skills {
   background-color: mediumturquoise;
   width: 50px;
+}
+.attack {
+  background-color: #a8e3ff;
+  width: 70px;
+}
+.defense {
+  background-color: bisque;
+  width: 70px;
+}
+.sc {
+  background-color: #fff599;
+  width: 30px;
+}
+
+.stretch {
+  background-color: lightpink;
+  width: 70px;
+}
+.recovery {
+  background-color: #90ffc7;
+  width: 75px;
 }
 
 // SHARE BUTTON

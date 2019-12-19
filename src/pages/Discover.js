@@ -9,6 +9,25 @@ import DiscoverList from './../components/DiscoverList';
 
 import './../styles/discover.scss';
 
+import Select from 'react-select';
+
+const sports = [
+  { value: 'all', label: 'All' },
+  { value: 'rugby', label: 'Rugby' },
+  { value: 'basketball', label: 'Basketball' },
+  { value: 'football', label: 'Football' },
+];
+
+const type = [
+  { value: 'all', label: 'All' },
+  { value: 'skills', label: 'Skills' },
+  { value: 'attack', label: 'Attack' },
+  { value: 'defense', label: 'Defense' },
+  { value: 'sc', label: 'Strength & Conditioning' },
+  { value: 'stretch', label: 'Stretch' },
+  { value: 'recovery', label: 'Recovery' },
+];
+
 class Discover extends Component {
 
   state = {
@@ -49,25 +68,33 @@ class Discover extends Component {
     }
   }
 
+  handleSport = (selected) => {
+    this.setState({sport: selected})
+  }
+
+  handleType = (selected) => {
+    this.setState({type: selected})
+  }
+
   filter = (e) => {
     e.preventDefault();
-    console.log(this.state.sport, this.state.type);
+    console.log(this.state.sport.value, this.state.type.value);
     const currentExs = this.state.allExercises;
     let filteredExs = [];
 
     // filter by sport --> IMPROVEBABLE
-    if (this.state.sport === 'all') {
+    if (this.state.sport.value === 'all') {
       filteredExs = currentExs;
     } else {
       filteredExs = currentExs.filter( ex => {
-        return ex.sport === this.state.sport;
+        return ex.sport === this.state.sport.value;
       })
     }
 
     // filter by type
-    if (this.state.type !== 'all') {
+    if (this.state.type.value !== 'all') {
       filteredExs = filteredExs.filter( ex => {
-        return ex.type === this.state.type;
+        return ex.type === this.state.type.value;
       })
     }
 
@@ -78,23 +105,22 @@ class Discover extends Component {
     return(
       <div className="content">
         <h1>Discover page</h1>
-        <form onSubmit={this.filter}>
-          <select name="" id="" ref="sport" onChange={(e) => this.setState({ sport: e.target.value })}>
-            <option value="all" default>All</option>
-            <option value="basketball">Basketball</option>
-            <option value="rugby">Rugby</option>
-            <option value="football">Football</option>
-          </select>
-          <select name="" id="" ref="type" onChange={(e) => this.setState({ type: e.target.value })}>
-            <option value="all" default>All</option>
-            <option value="skills">Skills</option>
-            <option value="attack">Attack</option>
-            <option value="defense">Defense</option>
-            <option value="sc">Strength $ Conditioning</option>
-            <option value="stretch">Stretch</option>
-            <option value="recovery">Recovery</option>
-          </select>
-
+        
+        <form onSubmit={this.filter} className="filter-form">
+          <div className="selects">
+            <Select
+              className="custom-select"
+              value={this.state.sport}
+              onChange={this.handleSport}
+              options={sports}
+            />
+            <Select
+              className="custom-select"
+              value={this.state.type}
+              onChange={this.handleType}
+              options={type}
+            />
+          </div>
           <button className="btn btn-filter">Filter</button>
         </form>
         

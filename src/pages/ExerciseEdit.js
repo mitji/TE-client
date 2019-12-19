@@ -1,13 +1,34 @@
 import React, { Component } from 'react';
 import exercisesService from './../services/exercises-service'
 
+import Select from 'react-select';
+
+const sports = [
+  { value: 'all', label: 'All' },
+  { value: 'rugby', label: 'Rugby' },
+  { value: 'basketball', label: 'Basketball' },
+  { value: 'football', label: 'Football' },
+];
+
+const type = [
+  { value: 'all', label: 'All' },
+  { value: 'skills', label: 'Skills' },
+  { value: 'attack', label: 'Attack' },
+  { value: 'defense', label: 'Defense' },
+  { value: 'sc', label: 'Strength & Conditioning' },
+  { value: 'stretch', label: 'Stretch' },
+  { value: 'recovery', label: 'Recovery' },
+];
+
 class ExerciseEdit extends Component {
 
   state = {
-    exercise: {}
+    exercise: {},
+    sport: {},
+    type: {}
   }
-
-  handleInput = e => {
+ 
+  handleInput = (e) => {
     const target = e.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
@@ -17,10 +38,36 @@ class ExerciseEdit extends Component {
     this.setState({ exercise: exerciseCopy });
   };
 
+  handleSport = (selected) => {
+    this.setState({sport: selected})
+  }
+
+  handleType = (selected) => {
+    this.setState({type: selected})
+  }
+
+  fileOnchange = (event) => {    
+    const file = event.target.files[0];
+    const uploadData = new FormData()
+    uploadData.append('photo', file)
+
+    exercisesService.uploadImage(uploadData)
+      .then((img_url) => {
+        const exerciseCopy = this.state.exercise;
+        exerciseCopy.img_url = img_url;
+        this.setState({ exercise: exerciseCopy })
+        console.log(img_url)
+      })
+      .catch((error) => console.log(error))
+  }
+
   updateExercise = (e) => {
     e.preventDefault();
     const id = this.state.exercise._id;
-    const {title, description, duration, sport, type, video_url, img_url, share} = this.state.exercise;
+
+    const {title, description, duration, video_url, img_url, share} = this.state.exercise; 
+    const  sport  = this.state.sport.value;
+    const  type  = this.state.type.value;
     
     exercisesService.modifyOne({title, description, duration, sport, type, video_url, img_url, share}, id)
       .then( (updatedExercise) => {
@@ -43,12 +90,21 @@ class ExerciseEdit extends Component {
     const {id} = this.props.match.params; // get id from url
     exercisesService.getOne(id)
       .then( (exercise) => {
-        this.setState({exercise: exercise});
+        const sport = {
+          value: exercise.sport,
+          label: `${exercise.sport.charAt(0).toUpperCase()}${exercise.sport.slice(1)}`
+        };
+        const type = {
+          value: exercise.type,
+          label: `${exercise.type.charAt(0).toUpperCase()}${exercise.type.slice(1)}`
+        };
+        this.setState({exercise, sport, type});
       })
       .catch( (err) => console.log(err));
   }
 
   render() {
+    console.log(this.state.sport, this.state.type);
     return(
       <main className="content">
 
@@ -56,41 +112,50 @@ class ExerciseEdit extends Component {
           <img src={'/arrow.svg'} className="back-icon" alt=""/>
         </button>
 
-        <h1>Exercise details</h1>
+        <h1>Exercise edit</h1>
 
-        <form onSubmit={this.updateExercise}>
+        <form onSubmit={this.updateExercise} className="input-form">
           <label htmlFor="">Title</label>
-          <input type="text" value={this.state.exercise.title} name="title" onChange={this.handleInput} />
+          <input className="input" type="text" value={this.state.exercise.title} name="title" onChange={this.handleInput} required/>
           <label htmlFor="">Description</label>
-          <textarea value={this.state.exercise.description} name="description" onChange={this.handleInput}/>
-          <label htmlFor="">Duration</label>
-          <input type="number" value={this.state.exercise.duration} name="duration" onChange={this.handleInput}/>
+          <textarea value={this.state.exercise.description} name="description" onChange={this.handleInput} required/>
+          
           <label htmlFor="">Sport</label>
-          <select name="sport" id="" ref="sport" value={this.state.exercise.sport} onChange={this.handleInput}>
-            <option value="all">All</option>
-            <option value="basketball">Basketball</option>
-            <option value="rugby">Rugby</option>
-            <option value="football">Football</option>
-          </select>
+          <Select
+            className="select"
+            value={this.state.sport}
+            onChange={this.handleSport}
+            options={sports}
+            placeholder={this.state.exercise.sport}
+            required
+          />
           <label htmlFor="">Type</label>
-          <select name="type" id="" ref="type" value={this.state.exercise.type} onChange={this.handleInput}>
-            <option value="all">All</option>
-            <option value="skills">Skills</option>
-            <option value="attack">Attack</option>
-            <option value="defense">Defense</option>
-            <option value="sc">Strength $ Conditioning</option>
-            <option value="stretch">Stretch</option>
-            <option value="recovery">Recovery</option>
-          </select>
+          <Select
+            className="select"
+            value={this.state.type}
+            onChange={this.handleType}
+            options={type}
+            required
+          />
           <label htmlFor="">Video</label>
-          <input type="text" name="video_url" value={this.state.exercise.video_url} onChange={this.handleInput}/>
+          <input className="input" type="text" name="video_url" value={this.state.exercise.video_url} onChange={this.handleInput}/>
           <label htmlFor="">Image</label>
-          <input type="text" name="img_url" value={this.state.exercise.img_url} onChange={this.handleInput}/>
-          <label htmlFor="">Share</label>
-          <label class="switch">
-          <input type="checkbox" name="share" checked={this.state.exercise.share} onChange={this.handleInput}/>
-          <span class="slider round"></span>
-          </label>
+          {
+            this.state.exercise.img_url
+             ? <span>You can't add a new picture!</span>
+             : <input type="file" className="custom-file-input" id="customFile" name='img_url' onChange={(event)=>this.fileOnchange(event)} />
+          }
+          <div className="inline-display">
+            <label htmlFor="">Duration</label>
+            <input className="input" type="number" value={this.state.exercise.duration} name="duration" onChange={this.handleInput} required/>
+            <span>min</span>
+            <label name="share">Share</label>
+            <label className="switch">
+              <input type="checkbox" name="share" checked={this.state.exercise.share} onChange={this.handleInput}/>
+              <span className="slider round"></span>
+            </label>
+          </div>
+          
           <button className="btn btn-success">Save</button>
         </form>
 
