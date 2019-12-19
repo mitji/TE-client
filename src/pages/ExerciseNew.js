@@ -25,7 +25,8 @@ class ExerciseNew extends Component {
   state = {
     exercise: [],
     sport: 'all',
-    type: 'all'
+    type: 'all',
+    isLoading: false
   }
  
   handleInput = (e) => {
@@ -46,7 +47,8 @@ class ExerciseNew extends Component {
     this.setState({type: selected})
   }
 
-  fileOnchange = (event) => {    
+  fileOnchange = (event) => {
+    this.setState({isLoading: true});
     const file = event.target.files[0];
     const uploadData = new FormData()
     uploadData.append('photo', file)
@@ -55,8 +57,7 @@ class ExerciseNew extends Component {
       .then((img_url) => {
         const exerciseCopy = this.state.exercise;
         exerciseCopy.img_url = img_url;
-        this.setState({ exercise: exerciseCopy })
-        console.log(img_url)
+        this.setState({ exercise: exerciseCopy, isLoading: false})
       })
       .catch((error) => console.log(error))
   }
@@ -128,8 +129,14 @@ class ExerciseNew extends Component {
               <span className="slider round"></span>
             </label>
           </div>
+          {
+            this.state.isLoading 
+              ? (<span className="btn btn-success loading-gif-btn">
+                  <img className="loading-gif" src={'/loading.gif'} alt="loading"/>
+                </span>)
+              : <button className="btn btn-success">Save</button>
+          }
           
-          <button className="btn btn-success">Save</button>
         </form>                
       </div>
     )

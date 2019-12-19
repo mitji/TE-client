@@ -32,7 +32,8 @@ class TrainingExerciseEdit extends Component {
       exercise: null,
       focusInput: undefined,
       sport: {},
-      type: {}
+      type: {},
+      isLoading: false
     }
 
     this.references = {
@@ -98,7 +99,8 @@ class TrainingExerciseEdit extends Component {
     this.setState({type: selected})
   }
 
-  fileOnchange = (event) => {    
+  fileOnchange = (event) => {
+    this.setState({isLoading: true});
     const file = event.target.files[0];
     const uploadData = new FormData()
     uploadData.append('photo', file)
@@ -107,7 +109,7 @@ class TrainingExerciseEdit extends Component {
       .then((img_url) => {
         const exerciseCopy = this.state.exercise;
         exerciseCopy.img_url = img_url;
-        this.setState({ exercise: exerciseCopy })
+        this.setState({ exercise: exerciseCopy, isLoading: false})
         console.log(img_url)
       })
       .catch((error) => console.log(error))
@@ -174,7 +176,13 @@ class TrainingExerciseEdit extends Component {
                   ? <span>You can't add a new picture!</span>
                   : <input type="file" className="custom-file-input" id="customFile" name='img_url' onChange={(event)=>this.fileOnchange(event)} />
                 }
-                <button className="btn btn-success">Save</button>
+                {
+                this.state.isLoading 
+                  ? (<button disabled className="btn btn-success loading-gif-btn">
+                      <img className="loading-gif" src={'/loading.gif'} alt="loading"/>
+                    </button>)
+                  : <button className="btn btn-success">Save</button>
+                }
               </form>
             )
           }

@@ -26,6 +26,18 @@
     }
   }
 }
+
+.loading-gif-btn {
+  width: 78px;
+  display: flex;
+  align-self: center;
+  margin-top: 15px;
+  img {
+    width: 18px;
+    height: 18px;
+  }
+}
+
 .profile-container {
   display: flex;
   justify-content: space-between;
