@@ -76,6 +76,9 @@ nav {
     color: $white;
     button {
       margin-right: 20px;
+      img {
+        background: none;
+      }
     }
   }
 }

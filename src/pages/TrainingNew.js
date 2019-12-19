@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Link } from 'react-router-dom';
 
 import trainingsService from './../services/trainings-service';
 import profileService from './../services/profile-service';
@@ -135,30 +136,37 @@ class TrainingNew extends Component {
               <button className="btn btn-cancel" onClick={this.cancelNewTraining}>Cancel</button>
             </form>
             <div className="exercises-edit">
+              <h4>Exercises</h4>
               {
-                trainingExercises ?
+                trainingExercises.length ?
                   (
                     trainingExercises.map( (exercise, i) => {
                       return (
                         <div className="training-info__exercises" key={i}>
-                          <div className="training-info__exercises__details">
-                            <h4>{exercise.title}</h4>
-                            <span className={`item-type ${exercise.type}`}>{exercise.type}</span>
-                            <p>{exercise.description}</p>
-                            <p><strong>Sport: </strong>{exercise.sport}</p>
+                          <div className="list-container__item list-container__item--training" key={i}>
+                            <Link to={`/profile/${exercise._id}`}>
+                              <div className="inline-display">
+                                <p><strong>{i+1}. {exercise.title}</strong></p>
+                                <span className={`item-type ${exercise.type}`}>{exercise.type}</span>
+                              </div>
+                              <p><strong>Sport: </strong>{exercise.sport}</p>
+                              <p><strong>Duration: </strong>{exercise.duration}</p>
+                              <p>{exercise.description}</p>
+                              
+                            </Link>
                           </div>
                           <div className="training-info__exercises__buttons">
                             <button className="btn-icon" onClick={() => this.removeExerciseFromTraining(exercise._id)}>
                               <img src={"/bin.png"} alt="remove-exercise" className="btn-icon__action"/>
                             </button>
-                          </div>
+                          </div>      
                         </div>
                       )
                     })
                   
                   )
                     
-                : null
+                : <p><strong>Add exercises!</strong></p>
               }
             </div>
           </section>

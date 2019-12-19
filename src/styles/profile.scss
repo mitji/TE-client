@@ -111,9 +111,13 @@
         padding-bottom: 5px;
         border-bottom: 1px solid #e1e1e1;
       }
-      > p:last-of-type {
+      > a > p:last-of-type {
+        height: 35px;
+        overflow: overlay;
         margin-top: 5px;
+        color: #4a4a4a;
       }
+      
     }
   }
   &--trainings {
