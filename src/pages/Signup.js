@@ -26,6 +26,9 @@ class Signup extends Component {
     const { email, name, lastName, password } = this.state;
     return (
       <div className="auth-container">
+        <div className="img-container">
+          <img src={'/logo.png'} alt=""/>
+        </div>
         <h1>Sign Up</h1>
         <form onSubmit={this.handleFormSubmit}>
           <label>Email:</label>
@@ -59,7 +62,7 @@ class Signup extends Component {
             onChange={this.handleChange}
           />
 
-          <input className="submit-btn" type="submit" value="Signup" />
+          <input className="btn btn-success" type="submit" value="Signup" />
         </form>
 
         <p>Already have account?</p>

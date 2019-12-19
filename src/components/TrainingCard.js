@@ -20,9 +20,9 @@ class TrainingCard extends Component {
             <h4>{training.title}</h4>
             <span>{training.duration} min</span>
           </div>
-            {training.exercises.map( exercise => {
+            {training.exercises.map( (exercise, i) => {
               return (
-                <div className="training-card__exercise" key={shortid.generate()}>
+                <div className="training-card__exercise inline-display" key={i}>
                   <p>{exercise.title}</p>
                   <span className={`item-type ${exercise.type}`}>{exercise.type}</span>
                 </div>

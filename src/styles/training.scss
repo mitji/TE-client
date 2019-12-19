@@ -28,26 +28,32 @@
   border-radius: 12px;
   box-shadow: 0 0 12px 0 #E1E1E1;
   color: #fff;
-  padding: 20px 0;
+  padding: 15px 0;
   margin-top: 20px;
   box-sizing: border-box;
 
   &__header {
     padding: 0 20px 5px;
     border-bottom: 1px solid #E1E1E1;
+    h4 {
+      margin: 2px 0;
+    }
+  }
+  .inline-display {
+    margin-top: 8px;
   }
   &__exercise {
-    margin: 15px 0;
-    padding: 0 20px;
-    &:last-of-type {
-      margin-bottom: 0;
+    padding: 5px 20px; 
+    p {
+      font-weight: bold;
     }
+    
   }
   transition: 0.3s;
   &:hover {
     transition: 0.3s;
-    opacity: 0.9;
-    padding: 25px 0 30px;
+    opacity: 0.6;
+    padding: 18px 0 20px;
   }
 }
 

@@ -24,6 +24,9 @@ class Login extends Component {
 
     return (
       <div className="auth-container">
+      <div className="img-container">
+        <img src={'/logo.png'} alt=""/>
+      </div>
         <h1>Login</h1>
         <form onSubmit={this.handleFormSubmit}>
           <label>Email:</label>
@@ -42,9 +45,10 @@ class Login extends Component {
             onChange={this.handleChange}
           />
 
-          <input className="submit-btn" type="submit" value="Login" />
+          <input className="btn btn-success" type="submit" value="Login" />
           <p>Not a user yet?</p>
           <Link to={'/signup'}>Sign up</Link>
+          
         </form>
       </div>
     );

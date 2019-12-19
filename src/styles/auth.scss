@@ -6,8 +6,17 @@
   max-width: 500px;
   text-align: center;
   height: 100vh;
+  .img-container {
+    padding-bottom: 20px;
+    border-bottom: 1px solid #001134;
+    margin: 0 auto 40px;
+    img {
+      width: 200px;
+    }
+  }
+  
   h1 {
-    margin-bottom: 50px;
+    margin-bottom: 27px;
   }
   form {
     display: flex;
@@ -16,19 +25,26 @@
       margin: 15px 0;
     }
     input {
+      font-size: 14px;
       height: 33px;
       border-radius: 5px;
-      border: 1px solid grey;
+      border: 1px solid #e1e1e1;
       outline: none;
       padding: 3px 20px;
       width: 320px;
       align-self: center;
+      transition: 0.3s;
+      &:focus {
+        transition: 0.3s;
+        border: 1px solid #ffa041b2;
+      }
     }
-    .submit-btn {
-      margin-top: 15px;
-      cursor: pointer;
-      width: 100px;
-      align-self: center;
+    .btn-success {
+      width: 80px;
+      margin: 20px 0 5px;
+    }
+    a {
+      color: #4a4a4a;
     }
   }
   
