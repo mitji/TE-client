@@ -77,7 +77,7 @@ class ExerciseDetails extends Component {
                   <p>
                     <strong>Sport: </strong>{exercise.sport}
                     <span>|</span>
-                    <span>{exercise.duration} min</span>      
+                    <span><img src={'/stopwatch.png'} className='stopwatch-icon'/>{exercise.duration} min</span>      
                   </p>
                 </div>
               </div>

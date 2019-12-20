@@ -188,7 +188,7 @@ class TrainingEdit extends Component {
                                 <span className={`item-type ${exercise.type}`}>{exercise.type}</span>
                               </div>
                               <p><strong>Sport: </strong>{exercise.sport}</p>
-                              <p><strong>Duration: </strong>{exercise.duration}</p>
+                              <span><img src={'/stopwatch.png'} className='stopwatch-icon'/>{exercise.duration} min</span>
                               <p>{exercise.description}</p>
                               
                             </Link>

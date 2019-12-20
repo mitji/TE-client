@@ -19,7 +19,7 @@ class DiscoverCard extends Component {
         <Link to={`/discover/${exercise._id}`}>
             <h4>{exercise.title}</h4>
             <div className="inline-display">
-              <p>{exercise.duration} min | {exercise.sport}</p>
+              <p><img src={'/stopwatch.png'} className='stopwatch-icon'/>{exercise.duration} min | {exercise.sport}</p>
               <span className={`item-type ${exercise.type}`}>{exercise.type}</span>
             </div>
             <p><strong>Author: </strong>{exercise.author.name} {exercise.author.lastName}</p>

@@ -37,7 +37,7 @@ class ExerciseList extends Component {
               <div className="list-container__item" key={shortid.generate()}>
                 <Link to={`/profile/${exercise._id}`}>
                   <p><strong>{exercise.title}</strong></p>
-                  <div><span>{exercise.duration} min</span>   |   <span className={`item-type ${exercise.type}`}>{exercise.type}</span></div>
+                  <div><span><img src={'/stopwatch.png'} className='stopwatch-icon'/>{exercise.duration} min</span>   |   <span className={`item-type ${exercise.type}`}>{exercise.type}</span></div>
                   {
                     (exercise.author._id !== this.props.userId) ?
                     (

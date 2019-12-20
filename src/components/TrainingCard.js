@@ -18,7 +18,7 @@ class TrainingCard extends Component {
         <Link to={`/my-trainings/${training._id}`}>
           <div className="training-card__header">
             <h4>{training.title}</h4>
-            <span>{training.duration} min</span>
+            <span><img src={'/stopwatch.png'} className='stopwatch-icon'/>{training.duration} min</span>
           </div>
             {training.exercises.map( (exercise, i) => {
               return (

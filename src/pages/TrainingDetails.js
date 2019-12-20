@@ -50,7 +50,7 @@ class TrainingDetails extends Component {
                   <p>
                     <strong>Sport: </strong>{training.sport}
                     <span>|</span>
-                    <span>{training.duration} min</span>      
+                    <span><img src={'/stopwatch.png'} className='stopwatch-icon'/>{training.duration} min</span>      
                   </p>
                 </div>
               </div>
@@ -69,7 +69,7 @@ class TrainingDetails extends Component {
                             <span className={`item-type ${exercise.type}`}>{exercise.type}</span>
                           </div>
                           <p><strong>Sport: </strong>{exercise.sport}</p>
-                          <p><strong>Duration: </strong>{exercise.duration}</p>
+                          <span><img src={'/stopwatch.png'} className='stopwatch-icon'/>{exercise.duration} min</span>
                           <p>{exercise.description}</p>
                           
                         </Link>
