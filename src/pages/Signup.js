@@ -25,7 +25,9 @@ class Signup extends Component {
 
   render() {
     const { email, name, lastName, password } = this.state;
+      
     return (
+      
       <div className="auth-container">
         <div className="img-container">
           <img src={'/logo.png'} alt=""/>
@@ -34,13 +36,17 @@ class Signup extends Component {
         <form onSubmit={this.props.handleSubmit(this.handleFormSubmit)}>
           <label>Email:</label>
           <input
-            type="email"
             name="email"
             value={email}
             onChange={this.handleChange}
-            ref={this.props.register({ required: true })}
+            ref={this.props.register({ required: true, pattern: /^\S+@\S+$/i})}
           />
-          {this.props.errors.email &&  this.props.errors.email.type === 'required' && <p>This is required</p>}
+          {this.props.errors.email && <span className="feedback"></span>}
+          {this.props.errors.email 
+            &&  this.props.errors.email.type === 'pattern' 
+            && <span className="feedback-text">Enter a valid email</span>
+          }
+          
           <label>Name:</label>
           <input
             type="text"
@@ -49,6 +55,7 @@ class Signup extends Component {
             onChange={this.handleChange}
             ref={this.props.register({ required: true })}
           />
+          {this.props.errors.name &&  this.props.errors.name.type === 'required' && <span className="feedback"></span>}
 
           <label>Last name:</label>
           <input
@@ -58,6 +65,7 @@ class Signup extends Component {
             onChange={this.handleChange}
             ref={this.props.register({ required: true })}
           />
+          {this.props.errors.lastName &&  this.props.errors.lastName.type === 'required' && <span className="feedback"></span>}
 
           <label>Password:</label>
           <input
@@ -65,8 +73,10 @@ class Signup extends Component {
             name="password"
             value={password}
             onChange={this.handleChange}
-            ref={this.props.register({ required: true })}
+            ref={this.props.register({ required: true,  minLength: 6})}
           />
+          {this.props.errors.password && <span className="feedback"></span>}
+          {this.props.errors.password && this.props.errors.password.type === 'minLength' && <span className="feedback-text">Password must have at least 6 characters!</span>}
 
           <input className="btn btn-success" type="submit" value="Signup" />
         </form>
