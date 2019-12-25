@@ -32,7 +32,7 @@ const withAuth = WrappedComponent => {
   };
 };
 
-// Provider
+// Provider --> provides my hoc with functions
 class AuthProvider extends React.Component {
   state = { 
     isLoggedin: false, 

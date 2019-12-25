@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withAuth } from '../services/AuthProvider';
+import { withValidation } from '../hoc/widthValidation';
 
 class Signup extends Component {
   state = { 
@@ -10,11 +11,11 @@ class Signup extends Component {
     password: '' 
   };
 
-  handleFormSubmit = event => {
-    event.preventDefault();
+  handleFormSubmit = () => {
     const { email, name, lastName, password } = this.state;
     //  console.log('Signup -> form submit', { username, password });
-    this.props.signup({ email, name, lastName, password }); // props.signup is Provided by withAuth() and Context API
+    console.log({ email, name, lastName, password });
+    //this.props.signup({ email, name, lastName, password }); // props.signup is Provided by withAuth() and Context API
   };
 
   handleChange = event => {
@@ -30,20 +31,23 @@ class Signup extends Component {
           <img src={'/logo.png'} alt=""/>
         </div>
         <h1>Sign Up</h1>
-        <form onSubmit={this.handleFormSubmit}>
+        <form onSubmit={this.props.handleSubmit(this.handleFormSubmit)}>
           <label>Email:</label>
           <input
             type="email"
             name="email"
             value={email}
             onChange={this.handleChange}
+            ref={this.props.register({ required: true })}
           />
+          {this.props.errors.email &&  this.props.errors.email.type === 'required' && <p>This is required</p>}
           <label>Name:</label>
           <input
             type="text"
             name="name"
             value={name}
             onChange={this.handleChange}
+            ref={this.props.register({ required: true })}
           />
 
           <label>Last name:</label>
@@ -52,6 +56,7 @@ class Signup extends Component {
             name="lastName"
             value={lastName}
             onChange={this.handleChange}
+            ref={this.props.register({ required: true })}
           />
 
           <label>Password:</label>
@@ -60,6 +65,7 @@ class Signup extends Component {
             name="password"
             value={password}
             onChange={this.handleChange}
+            ref={this.props.register({ required: true })}
           />
 
           <input className="btn btn-success" type="submit" value="Signup" />
@@ -72,4 +78,4 @@ class Signup extends Component {
   }
 }
 
-export default withAuth(Signup);
+export default withValidation(withAuth((Signup)));
