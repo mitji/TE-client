@@ -24,9 +24,9 @@ class Login extends Component {
 
     return (
       <div className="auth-container">
-      <div className="img-container">
-        <img src={'/logo.png'} alt=""/>
-      </div>
+        <div className="img-container">
+          <img src={'/logo.png'} alt=""/>
+        </div>
         <h1>Login</h1>
         <form onSubmit={this.handleFormSubmit}>
           <label>Email:</label>

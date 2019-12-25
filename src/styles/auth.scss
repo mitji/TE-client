@@ -38,6 +38,7 @@
       box-sizing: border-box;
       align-self: center;
       transition: 0.3s;
+      color: #4a4a4a;
       &:focus {
         transition: 0.3s;
         border: 1px solid #ffa041b2;
@@ -63,6 +64,7 @@
     .btn-success {
       width: 80px;
       margin: 20px 0 5px;
+      color: #f3f3f3;
     }
     a {
       color: #4a4a4a;
