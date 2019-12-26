@@ -2,7 +2,7 @@
 
 .btn {
   padding: 5px 10px;
-  border-radius: 5px;
+  border-radius: 25px;
   border: none;
   outline: none;
   font-weight: bold;
@@ -33,6 +33,7 @@
 
 .btn:hover {
   filter: brightness(95%);
+  box-shadow: 0px 2px 5px 1px #b1b1b1;
 }
 
 .btn-success {
@@ -58,8 +59,9 @@
 }
 
 .btn-edit {
-  background-color: $dark-blue;
-  color: $white;
+  color: $dark-blue;
+  background: transparent;
+  border: 1px solid $dark-blue;
 }
 
 .btn-filter {
@@ -74,5 +76,6 @@
   margin-top: 5px !important;
   &:hover {
     color: #5a5a5a;
+    box-shadow: none;
   }
 }
