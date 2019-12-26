@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
-import exercisesService from './../services/exercises-service';
-
 import Select from 'react-select';
+
+import exercisesService from './../services/exercises-service';
+import { withValidation } from '../hoc/widthValidation';
+
+import './../styles/auth.scss';
 
 const sports = [
   { value: 'all', label: 'All' },
@@ -63,7 +66,6 @@ class ExerciseNew extends Component {
   }
 
   saveExercise = (e) => {
-    e.preventDefault();
     const {title, description, duration, video_url, img_url, share} = this.state.exercise; 
     const  sport  = this.state.sport.value;
     const  type  = this.state.type.value;
@@ -86,12 +88,23 @@ class ExerciseNew extends Component {
           <img src={'/arrow.svg'} className="back-icon" alt=""/>
         </button>
         <h1>New exercise</h1>
-        <form onSubmit={this.saveExercise} className="input-form">
+        <form onSubmit={this.props.handleSubmit(this.saveExercise)} className="input-form">
           <label htmlFor="">Title</label>
-          <input className="input" type="text" value={this.state.exercise.title} name="title" onChange={this.handleInput} required/>
-          <label htmlFor="">Description</label>
-          <textarea value={this.state.exercise.description} name="description" onChange={this.handleInput} required/>
+          <input className="input" type="text" value={this.state.exercise.title} 
+                  name="title" 
+                  onChange={this.handleInput} 
+                  ref={this.props.register({ required: true})}
+          />
+          {this.props.errors.title && <span className="feedback"></span>}
           
+          <label htmlFor="">Description</label>
+          <textarea value={this.state.exercise.description} 
+                    name="description" 
+                    onChange={this.handleInput} 
+                    ref={this.props.register({ required: true})}
+          />
+          {this.props.errors.description && <span className="feedback feedback--description"></span>}
+
           <div className="inline-display">
             <div className="inline-display__column">
               <label htmlFor="">Sport</label>
@@ -100,8 +113,10 @@ class ExerciseNew extends Component {
                   value={this.state.sport}
                   onChange={this.handleSport}
                   options={sports}
-                  required
+                  name="sport"
+                  ref={this.props.register({ required: true})}
                 />
+                {this.props.errors.sport && <span className="feedback"></span>}
             </div>
             <div className="inline-display__column">          
                 <label htmlFor="">Type</label>
@@ -110,8 +125,10 @@ class ExerciseNew extends Component {
                   value={this.state.type}
                   onChange={this.handleType}
                   options={type}
-                  required
+                  name="type"
+                  ref={this.props.register({ required: true})}
                 />
+                {this.props.errors.type && <span className="feedback"></span>}
             </div>
 
           </div>
@@ -121,14 +138,21 @@ class ExerciseNew extends Component {
           <input type="file" className="custom-file-input" id="customFile" name='img_url' onChange={(event)=>this.fileOnchange(event)} />
           <div className="inline-display">
             <label htmlFor="">Duration</label>
-            <input className="input" type="number" value={this.state.exercise.duration} name="duration" onChange={this.handleInput} required/>
+            <input className="input" type="number" 
+                    value={this.state.exercise.duration} 
+                    name="duration" 
+                    onChange={this.handleInput}
+                    ref={this.props.register({ required: true})}
+            />
             <span>min</span>
+            
             <label name="share">Share</label>
             <label className="switch">
               <input type="checkbox" name="share" checked={this.state.exercise.share} onChange={this.handleInput}/>
               <span className="slider round"></span>
             </label>
           </div>
+          {this.props.errors.duration && <span className="feedback feedback--duration"></span>}
           {
             this.state.isLoading 
               ? (<span className="btn btn-success loading-gif-btn">
@@ -143,4 +167,4 @@ class ExerciseNew extends Component {
   }
 }
 
-export default ExerciseNew;
+export default withValidation(ExerciseNew);
