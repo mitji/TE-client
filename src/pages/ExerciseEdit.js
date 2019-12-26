@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import exercisesService from './../services/exercises-service'
-
 import Select from 'react-select';
+
+import { withValidation } from '../hoc/widthValidation';
+import exercisesService from './../services/exercises-service';
+
 
 const sports = [
   { value: 'all', label: 'All' },
@@ -58,13 +60,11 @@ class ExerciseEdit extends Component {
         const exerciseCopy = this.state.exercise;
         exerciseCopy.img_url = img_url;
         this.setState({ exercise: exerciseCopy, isLoading: false})
-        console.log(img_url)
       })
       .catch((error) => console.log(error))
   }
 
   updateExercise = (e) => {
-    e.preventDefault();
     const id = this.state.exercise._id;
 
     const {title, description, duration, video_url, img_url, share} = this.state.exercise; 
@@ -106,7 +106,6 @@ class ExerciseEdit extends Component {
   }
 
   render() {
-    console.log(this.state.sport, this.state.type);
     return(
       <main className="content">
 
@@ -118,11 +117,22 @@ class ExerciseEdit extends Component {
           <button className="btn btn-delete" onClick={this.deleteExercise}>Delete</button>
         </div>
 
-        <form onSubmit={this.updateExercise} className="input-form">
-          <label htmlFor="">Title</label>
-          <input className="input" type="text" value={this.state.exercise.title} name="title" onChange={this.handleInput} required/>
+        <form onSubmit={this.props.handleSubmit(this.updateExercise)} className="input-form">
+        <label htmlFor="">Title</label>
+          <input className="input" type="text" value={this.state.exercise.title} 
+                  name="title" 
+                  onChange={this.handleInput} 
+                  ref={this.props.register({ required: true})}
+          />
+          {this.props.errors.title && <span className="feedback"></span>}
+          
           <label htmlFor="">Description</label>
-          <textarea value={this.state.exercise.description} name="description" onChange={this.handleInput} required/>
+          <textarea value={this.state.exercise.description} 
+                    name="description" 
+                    onChange={this.handleInput} 
+                    ref={this.props.register({ required: true})}
+          />
+          {this.props.errors.description && <span className="feedback feedback--description"></span>}
           
           <div className="inline-display">
             <div className="inline-display__column">
@@ -152,7 +162,12 @@ class ExerciseEdit extends Component {
           <input type="file" className="custom-file-input" id="customFile" name='img_url' onChange={(event)=>this.fileOnchange(event)} />
           <div className="inline-display">
             <label htmlFor="">Duration</label>
-            <input className="input" type="number" value={this.state.exercise.duration} name="duration" onChange={this.handleInput} required/>
+            <input className="input" type="number" 
+                    value={this.state.exercise.duration} 
+                    name="duration" 
+                    onChange={this.handleInput}
+                    ref={this.props.register({ required: true})}
+            />
             <span>min</span>
             <label name="share">Share</label>
             <label className="switch">
@@ -160,6 +175,7 @@ class ExerciseEdit extends Component {
               <span className="slider round"></span>
             </label>
           </div>
+          {this.props.errors.duration && <span className="feedback feedback--duration"></span>}
           {
             this.state.isLoading 
               ? (<button disabled className="btn btn-success loading-gif-btn">
@@ -173,4 +189,4 @@ class ExerciseEdit extends Component {
   }
 }
 
-export default ExerciseEdit;
+export default withValidation(ExerciseEdit);
