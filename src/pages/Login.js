@@ -49,6 +49,7 @@ class Login extends Component {
             ref={this.props.register({ required: true})}
           />
           {this.props.errors.password && <span className="feedback"></span>}
+          
           {this.props.isUserInvalid && <span className="feedback-text">Enter a valid email and password</span>}
           <input className="btn btn-success" type="submit" value="Login" />
           <p>Not a user yet?</p>
