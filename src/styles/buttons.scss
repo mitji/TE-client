@@ -46,8 +46,9 @@
 }
 
 .btn-delete {
-  background-color: #ff8484;
-  color: $white;
+  color: #ff8484;
+  background: transparent;
+  border: 1px solid #ff8484;
 }
 
 .btn-create {
