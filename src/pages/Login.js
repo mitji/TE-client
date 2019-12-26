@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { withAuth } from '../services/AuthProvider';
 import { Link } from 'react-router-dom';
+import { withAuth } from '../services/AuthProvider';
+import { withValidation } from '../hoc/widthValidation';
+
 
 class Login extends Component {
   state = { 
@@ -9,7 +11,6 @@ class Login extends Component {
   };
 
   handleFormSubmit = event => {
-    event.preventDefault();
     const { email, password } = this.state;
     this.props.login({ email, password });
   };
@@ -28,14 +29,16 @@ class Login extends Component {
           <img src={'/logo.png'} alt=""/>
         </div>
         <h1>Login</h1>
-        <form onSubmit={this.handleFormSubmit}>
+        <form onSubmit={this.props.handleSubmit(this.handleFormSubmit)}>
           <label>Email:</label>
           <input
             type="email"
             name="email"
             value={email}
             onChange={this.handleChange}
+            ref={this.props.register({ required: true})}
           />
+          {this.props.errors.email && <span className="feedback"></span>}
 
           <label>Password:</label>
           <input
@@ -43,8 +46,10 @@ class Login extends Component {
             name="password"
             value={password}
             onChange={this.handleChange}
+            ref={this.props.register({ required: true})}
           />
-
+          {this.props.errors.password && <span className="feedback"></span>}
+          {this.props.isUserInvalid && <span className="feedback-text">Enter a valid email and password</span>}
           <input className="btn btn-success" type="submit" value="Login" />
           <p>Not a user yet?</p>
           <Link to={'/signup'}>Sign up</Link>
@@ -55,4 +60,4 @@ class Login extends Component {
   }
 }
 
-export default withAuth(Login);
+export default withValidation(withAuth(Login));
