@@ -2,7 +2,7 @@
 
 .btn {
   padding: 5px 10px;
-  border-radius: 25px;
+  border-radius: 5px;
   border: none;
   outline: none;
   font-weight: bold;
@@ -11,6 +11,10 @@
   display: flex;
   justify-content: center;
   transition: 0.3s;
+}
+
+.btn:hover {
+  filter: brightness(95%);
 }
 
 .btn-icon {
@@ -31,10 +35,6 @@
   }
 }
 
-.btn:hover {
-  filter: brightness(95%);
-  box-shadow: 0px 2px 5px 1px #b1b1b1;
-}
 
 .btn-success {
   background-color: #598AFF;
@@ -47,15 +47,23 @@
 }
 
 .btn-delete {
-  color: #ff8484;
+  color: #ffa6a6;
   background: transparent;
-  border: 1px solid #ff8484;
+  border: 1px solid #ffa6a6;
+  &:hover {
+    color: #ff8484;
+    border: 1px solid #ff8484;
+  }
 }
 
 .btn-create {
   background-color: $orange;
   color: $dark-blue;
   padding: 5px 15px;
+  box-shadow: 0px 2px 5px 0 #bdc5ff;
+  &:hover {
+    box-shadow: 0px 2px 5px 2px #bdc5ff;
+  }
 }
 
 .btn-edit {
@@ -76,6 +84,5 @@
   margin-top: 5px !important;
   &:hover {
     color: #5a5a5a;
-    box-shadow: none;
   }
 }
