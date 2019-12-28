@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Select from 'react-select';
+import getVideoId from 'get-video-id';
 
 import exercisesService from './../services/exercises-service';
 import { withValidation } from '../hoc/widthValidation';
@@ -66,9 +67,20 @@ class ExerciseNew extends Component {
   }
 
   saveExercise = (e) => {
-    const {title, description, duration, video_url, img_url, share} = this.state.exercise; 
-    const  sport  = this.state.sport.value;
-    const  type  = this.state.type.value;
+    let {title, description, duration, video_url, img_url, share} = this.state.exercise; 
+    const sport = this.state.sport.value;
+    const type = this.state.type.value;
+    const videoId = getVideoId(video_url);
+    switch(videoId.service) {
+      case 'youtube':
+          video_url = `https://www.youtube.com/embed/${videoId.id}`;
+        break;
+      case 'vimeo':
+          video_url = `https://player.vimeo.com/video/${videoId.id}`;
+        break;
+      default:
+          video_url = '';
+    }
     exercisesService.create({title, description, duration, sport, type, video_url, img_url, share})
       .then( () => {
         this.props.history.push('/profile');

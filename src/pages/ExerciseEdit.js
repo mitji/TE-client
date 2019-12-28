@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Select from 'react-select';
+import getVideoId from 'get-video-id';
 
 import { withValidation } from '../hoc/widthValidation';
 import exercisesService from './../services/exercises-service';
@@ -67,9 +68,20 @@ class ExerciseEdit extends Component {
   updateExercise = (e) => {
     const id = this.state.exercise._id;
 
-    const {title, description, duration, video_url, img_url, share} = this.state.exercise; 
-    const  sport  = this.state.sport.value;
-    const  type  = this.state.type.value;
+    let {title, description, duration, video_url, img_url, share} = this.state.exercise; 
+    const sport = this.state.sport.value;
+    const type = this.state.type.value;
+    const videoId = getVideoId(video_url);
+    switch(videoId.service) {
+      case 'youtube':
+          video_url = `https://www.youtube.com/embed/${videoId.id}`;
+        break;
+      case 'vimeo':
+          video_url = `https://player.vimeo.com/video/${videoId.id}`;
+        break;
+      default:
+          video_url = '';
+    }
     
     exercisesService.modifyOne({title, description, duration, sport, type, video_url, img_url, share}, id)
       .then( (updatedExercise) => {
