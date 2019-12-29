@@ -1,11 +1,35 @@
+@import 'colors';
+
 .auth-container {
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  margin: 0 auto;
-  max-width: 500px;
+  flex-direction: column;
   text-align: center;
   height: 100vh;
+  @media screen and (min-width: 750px){      
+    flex-direction: row;
+  }
+  section {
+    @media screen and (min-width: 750px){      
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 50%;
+    }
+    &:nth-of-type(2) {
+      background-color: $dark-blue;
+      color: #f3f3f3;
+    }
+    h1 {
+      font-size: 30px;
+      font-weight: 400;
+      margin-bottom: 10px;
+    }
+    h2 {
+      font-size: 30px;
+      font-weight: 200;
+    }
+  }
   .img-container {
     padding-bottom: 20px;
     border-bottom: 1px solid #001134;
@@ -13,19 +37,20 @@
     img {
       width: 200px;
     }
-  }
-  
-  h1 {
-    margin-bottom: 27px;
+  }  
+  h2 {
+    margin-bottom: 30px;
   }
   form {
     display: flex;
     flex-direction: column;
     max-width: 320px;
     width: 100%;
-    margin: 0 auto;
+    margin: 0 auto 10px;
     label {
       margin: 15px 0;
+      text-align: left;
+      font-weight: 400;
     }
     input {
       font-size: 14px;
@@ -65,10 +90,16 @@
       width: 80px;
       margin: 20px 0 5px;
       color: #f3f3f3;
+      border: none;
     }
-    a {
-      color: #4a4a4a;
-    }
+  }
+  p {
+    font-weight: 400;
+  }
+  a {
+    margin-top: 5px;
+    color: #588aff;
+    
   }
   
 }

@@ -25,37 +25,45 @@ class Login extends Component {
 
     return (
       <div className="auth-container">
-        <div className="img-container">
-          <img src={'/logo.png'} alt=""/>
-        </div>
-        <h1>Login</h1>
-        <form onSubmit={this.props.handleSubmit(this.handleFormSubmit)}>
-          <label>Email:</label>
-          <input
-            type="email"
-            name="email"
-            value={email}
-            onChange={this.handleChange}
-            ref={this.props.register({ required: true})}
-          />
-          {this.props.errors.email && <span className="feedback"></span>}
 
-          <label>Password:</label>
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={this.handleChange}
-            ref={this.props.register({ required: true})}
-          />
-          {this.props.errors.password && <span className="feedback"></span>}
-          
-          {this.props.isUserInvalid && <span className="feedback-text">Enter a valid email and password</span>}
-          <input className="btn btn-success" type="submit" value="Login" />
+        <section>
+          <div className="img-container">
+            <img src={'/logo.png'} alt=""/>
+          </div>
+          <h1>Training made easy</h1>
+          <h2>Your final training preparation tool</h2>
+        </section>
+
+        <section>
+          <h2>Login</h2>
+          <form onSubmit={this.props.handleSubmit(this.handleFormSubmit)}>
+            <label>Email</label>
+            <input
+              type="email"
+              name="email"
+              value={email}
+              onChange={this.handleChange}
+              ref={this.props.register({ required: true})}
+            />
+            {this.props.errors.email && <span className="feedback"></span>}
+
+            <label>Password</label>
+            <input
+              type="password"
+              name="password"
+              value={password}
+              onChange={this.handleChange}
+              ref={this.props.register({ required: true})}
+            />
+            {this.props.errors.password && <span className="feedback"></span>}
+
+            {this.props.isUserInvalid && <span className="feedback-text">Enter a valid email and password</span>}
+            <input className="btn btn-success" type="submit" value="Login" />   
+          </form>
           <p>Not a user yet?</p>
           <Link to={'/signup'}>Sign up</Link>
-          
-        </form>
+        </section>
+
       </div>
     );
   }
