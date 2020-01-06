@@ -4,7 +4,7 @@
 
 ## Description
 
-This is an app to prepare your trainings in an efficient way, being able to search and add to your trainings some exercises from different sports.
+TE is a platform for sport coaches to prepare their training sessions easily. It is a cross-sport platform, what means that as a coach you can find exercises of your sport and different sports and adapt it to your needs.
 
 
 
@@ -14,16 +14,17 @@ This is an app to prepare your trainings in an efficient way, being able to sear
 -  **Signup:** As an anon I can sign up in the platform so that I can start preparing my trainings
 -  **Login:** As a user I can login to the platform so that I can see, add, share and find exercises for my trainings
 -  **Logout:** As a user I can logout from the platform so no one else can use it
--  **My profile:** As a user I can view all my exercises, my trainings and my saved exercises
+-  **My profile:** As a user I can view all my trainings, my exercises and my saved exercises
 -  **My trainings:** As a user I can view all my trainings and the exercises from other users I have saved in my profile.
 -  **View trainings:** As a user I can view the details of a training
 -  **Edit trainings:** As a user I can edit a training by editing the activities inside
 -  **Add trainings:** As a user I can add trainings by adding activities
--  **Add activites:** As a user I can add activities to my trainings, and make it public so they appear in the discover page. The training has different inputs, including title, duration description, type, video, image and private boolean.
--  **Find acitvities:** As a user I can find activities for my trainings
--  **Save activities:** As a user I can save any activity/exercise I find interesting
+-  **Add exercises:** As a user I can add activities to my trainings, and make it public so they appear in the discover page. The training has different inputs, including title, duration description, type, video, image and private boolean.
+-  **View exercises:** As a user I can view the details of an exercise
+-  **Find exercises:** As a user I can find exercises for my trainings
+-  **Save exercises:** As a user I can save any exercise I find interesting
 -  **Edit profile:** As a user I can edit my profile
-
+-  **Logout:** As a user I can logout and finish my session
 
 
 
@@ -32,13 +33,13 @@ This is an app to prepare your trainings in an efficient way, being able to sear
 User profile:
 - Save training as a pdf
 
-- Add colors to type of training, so it can be easy to understand the load and organisation of a training session
-
-- Add *articles page* where the user can read articles
+- Add *articles page* where the user can read articles of his/her interest
 
 - Visit other users profiles to see all their public exercises
 
-- Add style options to exercise description
+- Add comments to public exercises
+
+- Add text style options to exercise description
 
 - Add admin page to see progress of trainings
 
@@ -53,6 +54,9 @@ User profile:
 # Client / Frontend
 
 ## Routes (React App)
+
+[not updated]
+
 | Path                      | Component            | Permissions | Behavior                                                     |
 | ------------------------- | -------------------- | ----------- | ------------------------------------------------------------ |
 | `/`                       | Splash           | public      | Home page                                        |
@@ -77,6 +81,8 @@ User profile:
 
 
 ## Components
+
+[not updated]
 
 - Splash
 - Login
@@ -135,14 +141,14 @@ User model
 ```javascript
 {
   email: {type: String, required: true, unique: true},
-  name: {type: String, required: true, unique: true},
-  lastName: {type: String, required: true, unique: true}, 
+  name: {type: String, required: true},
+  lastName: {type: String, required: true}, 
   password: {type: String, required: true},
   image: {type: String},
   sport: {type: String},
   trainings: [{type: Schema.Types.ObjectId, ref:'Training'}],
   exercises: [{type: Schema.Types.ObjectId, ref:'Exercise'}],
-  savedExercises: [{type: Schema.Types.ObjectId, ref:'Exercises'}]
+  savedExercises: [{type: Schema.Types.ObjectId, ref:'Exercise'}]
 }
 ```
 
@@ -152,11 +158,12 @@ Training model
 
 ```javascript
  {
-   title: {type: String, required: true},
-   description: {type: String, required: true},
-   duration: {type: String, required: true},
-   sport: {type: String, required: true},
-   exercises: [{type: Schema.Types.ObjectId, ref:'Exercise'}]
+  title: {type: String, required: true},
+  description: {type: String},
+  duration: {type: String, required: true}, 
+  sport: {type: String, required: true},
+  exercises: [{type: Schema.Types.ObjectId, ref:'Exercise'}],
+  author: {type: Schema.Types.ObjectId, ref:'User'}
  }
 ```
 
@@ -166,18 +173,15 @@ Exercise model
 
 ```javascript
 {
-   title: {type: String, required: true},
-   description: {type: String, required: true},
-   duration: {type: String, required: true},
-   sport: {type: String, required: true},
-   type: {type: String, required: true},
-   video_url: {type: String},
-   img_url: {type: String},
-   public: {type: Boolean},
-   author: {type: Schema.Types.ObjectId, ref:'User'}
-   rating: {type: String},
-   comments: [{type: Schema.Types.ObjectId, ref:'Comment'}],
- 	 complexity: {type: String}
+  title: {type: String, required: true},
+  description: {type: String},
+  duration: {type: String, required: true},
+  sport: {type: String, required: true},
+  type: {type: String, required: true},
+  video_url: {type: String},
+  img_url: {type: String},
+  share: {type: Boolean},
+  author: {type: Schema.Types.ObjectId, ref:'User'}
  }
 ```
 
@@ -238,26 +242,11 @@ Article model
 
 
 
-
-
-## Links
-
-### Trello
-
-[Project trello](https://trello.com/b/G1jVVdnv/m3-project) 
-
 ### Git
 
 The url to your repository and to your deployed project
 
-[Client repository Link](https://github.com/screeeen/project-client)
 
-[Server repository Link](https://github.com/screeeen/project-server)
+[Server repository Link](https://github.com/mitji/TE-server)
 
-[Deployed App Link](http://heroku.com)
-
-### Slides
-
-The url to your presentation slides
-
-[Slides Link](http://slides.com)
+[Deployed App Link](https://te-app.herokuapp.com/)
