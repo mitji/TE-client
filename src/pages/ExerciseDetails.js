@@ -5,6 +5,8 @@ import exercisesService from './../services/exercises-service';
 import profileService from './../services/profile-service';
 import discoverService from './../services/discover-service';
 
+import CommentsList from './../components/CommentsList';
+
 class ExerciseDetails extends Component {
 
   state = {
@@ -54,7 +56,6 @@ class ExerciseDetails extends Component {
   render() {
     const exercise = this.state.exercise;
     const userId = this.state.userId;
-    console.log('is saved?', this.state.isSaved);
     return(
       <main className="content">
         <button className="btn-icon" onClick={() => this.props.history.goBack()}>
@@ -111,11 +112,17 @@ class ExerciseDetails extends Component {
                     <div>
                     {
                       !this.state.isSaved
-                        ? <button className="btn btn-success" onClick={this.saveExercise}>Save</button>
+                        ? <button className="btn btn-success" onClick={this.saveExercise}>Save</button>  
                         : <button className="btn btn-delete" onClick={this.unsaveExercise}>Unsave</button>
+                          
                     }
                     </div>
                   )
+                  : null
+              }
+              {
+                (exercise.author !== userId) 
+                  ? <CommentsList exerciseId={this.props.match.params}/>
                   : null
               }
             </div>
