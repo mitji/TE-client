@@ -20,24 +20,23 @@
     border-radius: 3px;
     border: 1px solid #ddd;
     max-width: 400px;
+    &:before, &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: 100%;
+      width: 0;
+      height: 0;
+    }
+    &:before {
+      left: 19px;
+      border: 11px solid transparent;
+      border-bottom-color: #ddd;
+    }
+    &:after {
+      left: 20px;
+      border: 10px solid transparent;
+      border-bottom-color: #fff;
+    }
   }
-}
-.comment__text:before, .comment__text:after {
-  content: '';
-  display: block;
-  position: absolute;
-  bottom: 100%;
-  width: 0;
-  height: 0;
-
-}
-.comment__text:before {
-  left: 19px;
-  border: 11px solid transparent;
-  border-bottom-color: #ddd;
-}
-.comment__text:after {
-  left: 20px;
-  border: 10px solid transparent;
-  border-bottom-color: #fff;
 }
