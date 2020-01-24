@@ -122,7 +122,7 @@ class ExerciseDetails extends Component {
               }
               {
                 (exercise.author !== userId) 
-                  ? <CommentsList exerciseId={this.props.match.params}/>
+                  ? <CommentsList exerciseId={this.props.match.params} currentUser={userId}/>
                   : null
               }
             </div>

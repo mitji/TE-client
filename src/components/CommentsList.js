@@ -26,18 +26,29 @@ class CommentsList extends Component {
     this.setState({userComment: value})
   }
 
+  deleteComment = (e,commentId) => {
+    //e.preventDefault();
+    const { id } = this.props.exerciseId;
+    commentsService.deleteOne(id,commentId)
+      .then( (comments) => {
+        
+        this.setState({comments})
+      })
+      .catch( (err) => console.log(err));
+
+  }
+
   submitComment = (e) => {
     e.preventDefault();
     const { id } = this.props.exerciseId;
     const text = this.state.userComment;
-    console.log(id, text)
+    
     commentsService.create(id, {text})
       .then( (comments) => {
         this.setState({comments});
         this.setState({userComment: ''})
       })
-      .catch( (err) => console.log(err));
-    
+      .catch( (err) => console.log(err));   
   }
 
   componentDidMount() {
@@ -67,6 +78,11 @@ class CommentsList extends Component {
                     <strong className="comment__author">{comment.author.name} {comment.author.lastName}</strong>
                     <p className="comment__date">{month} {day}, {year}</p>
                     <p className="comment__text">{comment.text}</p>
+                    {
+                      comment.author._id === this.props.currentUser
+                      ? <button onClick={(e) => this.deleteComment(e,comment._id)} className="delete-btn">Delete</button>
+                      : null
+                    }
                   </div>
                 )
               })
@@ -74,11 +90,11 @@ class CommentsList extends Component {
           </div>
           : <p>No comments</p>
         }
-        <form onSubmit={this.submitComment}>
+        <form onSubmit={this.submitComment} className="add-comment-form">
           <textarea type="text" name="text" placeholder="Write your comment here" 
                     onChange={this.handleComment} value={this.state.userComment}>
           </textarea>
-          <button type="submit">Post</button>
+          <button type="submit" className="btn btn-post">Post</button>
         </form>
       </div>
     )
