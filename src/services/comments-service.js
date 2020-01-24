@@ -16,9 +16,10 @@ class Comments {
   }
 
   // post a comment to an exercise id
-  create(exerciseId) {
+  create(exerciseId, exercise) {
+    const { text } = exercise;
     return this.comments
-              .post(`${exerciseId}`)
+              .post(`${exerciseId}`, { text })
               .then(({data}) => data);
   }
 

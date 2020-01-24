@@ -7,7 +7,8 @@ import './../styles/comments.scss';
 class CommentsList extends Component {
 
   state = {
-    comments: []
+    comments: [],
+    userComment: ''
   }
 
   parseDate = (date) => {
@@ -18,6 +19,25 @@ class CommentsList extends Component {
     const month = d.toLocaleString('default', { month: 'long' });
     const year = d.getFullYear();
     return {day, month, year};
+  }
+
+  handleComment = (e) => {
+    const { value } = e.target;
+    this.setState({userComment: value})
+  }
+
+  submitComment = (e) => {
+    e.preventDefault();
+    const { id } = this.props.exerciseId;
+    const text = this.state.userComment;
+    console.log(id, text)
+    commentsService.create(id, {text})
+      .then( (comments) => {
+        this.setState({comments});
+        this.setState({userComment: ''})
+      })
+      .catch( (err) => console.log(err));
+    
   }
 
   componentDidMount() {
@@ -54,6 +74,12 @@ class CommentsList extends Component {
           </div>
           : <p>No comments</p>
         }
+        <form onSubmit={this.submitComment}>
+          <textarea type="text" name="text" placeholder="Write your comment here" 
+                    onChange={this.handleComment} value={this.state.userComment}>
+          </textarea>
+          <button type="submit">Post</button>
+        </form>
       </div>
     )
   }
